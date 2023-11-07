@@ -10,11 +10,11 @@ LARAVEL Project (Must be PHP >= 8.1)
 LEAFLET GOOGLE MAP - MASERU MAP (Show at least 15 locations)
 
 Store types:
-- Spaza (Red point)
-- Container (Blue point)
-- Stand alone (Black Point)
-- Inside Mall (Green point)
-- Hawker (Purple point)
+- Spaza (Red marker)
+- Container (Blue marker)
+- Stand alone (Black marker)
+- Inside Mall (Green marker)
+- Hawker (Purple marker)
 
 
 **Guest user view:**
