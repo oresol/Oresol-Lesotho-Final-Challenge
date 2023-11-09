@@ -5,8 +5,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand"  href="{{ url('/') }}">
+<nav class="navbar navbar-expand-lg navbar-light bg-success">
+  <a class="navbar-brand text-light"  href="{{ url('/') }}">
     <img src="{{ asset('images/logo.png') }}" alt="Company Logo" class="company-logo" width="50" height="50">
     Store Locator
   </a>
@@ -16,7 +16,7 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" href="{{ route('login') }}">Login</a>
+        <a class="nav-link text-light" href="{{ route('login') }}">Login</a>
       </li>
     </ul>
   </div>
