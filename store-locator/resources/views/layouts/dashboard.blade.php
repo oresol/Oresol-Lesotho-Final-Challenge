@@ -1,6 +1,4 @@
 @extends('layouts.app')
-
-@section('content')
 <div class="container-fluid p-0">
     <div class="row m-0">
         <nav class="col-md-2 d-md-block bg-success sidebar" style="width: 250px; height: 100vh; margin-top:-2%">
@@ -50,10 +48,6 @@
                 </ul>
             </div>
         </nav>
-        <div class="col-md-10 d-flex align-items-center justify-content-center" style="margin-top:-30%;">
-            @include('admin.map.map')
-        </div>
     </div>
 </div>
-@endsection
-
+@yield('content')

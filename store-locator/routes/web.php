@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Admin\TagController as TagController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('admin/pages/addTags', function () {
+    return view('admin.pages.addTags');
+})->name('admin.pages.addTags');
+
+Route::get('admin/pages/manageTags', function () {
+    return view('admin.pages.manageTags');
+})->name('admin.pages.manageTags');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::resource('tags', TagController::class);
+ 

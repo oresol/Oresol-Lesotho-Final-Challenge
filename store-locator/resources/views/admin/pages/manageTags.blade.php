@@ -13,7 +13,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="/home">
+                        <a class="nav-link text-light"  href="{{ route('home') }}">
                             <i class="fas fa-tachometer-alt"></i> Dashboard
                         </a>
                     </li>
@@ -51,9 +51,8 @@
             </div>
         </nav>
         <div class="col-md-10 d-flex align-items-center justify-content-center" style="margin-top:-30%;">
-            @include('admin.map.map')
+            @include('admin.tags.index')
         </div>
     </div>
 </div>
 @endsection
-
