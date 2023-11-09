@@ -6,7 +6,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/">
+  <a class="navbar-brand"  href="{{ url('/') }}">
     <img src="{{ asset('images/logo.png') }}" alt="Company Logo" class="company-logo" width="50" height="50">
     Store Locator
   </a>
@@ -16,14 +16,12 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link" href="author_login">Login</a>
+        <a class="nav-link" href="{{ route('login') }}">Login</a>
       </li>
     </ul>
   </div>
 </nav>
 
 @yield('content')
-
-<!-- Add Bootstrap JS and Popper.js scripts (required for Bootstrap) -->
 </body>
 </html>
