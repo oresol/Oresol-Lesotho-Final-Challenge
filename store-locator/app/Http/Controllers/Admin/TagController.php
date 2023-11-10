@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\TagRequest;
+use App\Http\Requests\UpdateTagRequest;
 use App\Models\Tag;
 
 class TagController extends Controller
@@ -37,10 +38,7 @@ class TagController extends Controller
         $validatedData = $request->validated();
         $existingTag = Tag::where('tag_name', $request->input('tag_name'))->first();
         $id = auth()->user()->id;
-
-    
-        if ($existingTag) {
-           
+        if ($existingTag) {    
             return redirect()->back()->with('message', 'Tag already exists.');
         }
     
@@ -71,12 +69,10 @@ class TagController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateTagRequest $request, string $id)
     {
         $tag = Tag::findOrFail($id);
-        $tag->update([
-            'tag_name' => $request->input('tag_name')
-        ]);
+        $tag->update($request->validated());
     
         return redirect()->back()->with('success', 'Tag updated successfully.');
     }

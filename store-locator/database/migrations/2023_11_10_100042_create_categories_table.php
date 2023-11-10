@@ -16,11 +16,11 @@ return new class extends Migration
             $table->string('category_name');
             $table->unsignedBigInteger('admin_id');
             $table->timestamps();
-
-            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
+    
+            $table->foreign('admin_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
-
+    
     public function down()
     {
         Schema::dropIfExists('categories');

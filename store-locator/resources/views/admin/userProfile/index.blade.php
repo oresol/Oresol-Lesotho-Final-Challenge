@@ -1,31 +1,45 @@
 <div class="container mt-5">
+     @if (Session::has('error'))
+            <div class="alert alert-danger" role="alert">
+                {{ Session::get('error') }}
+                </div>
+        @endif 
+        @if (Session::has('success'))
+        <div class="alert alert-success" role="alert">
+            {{ Session::get('success') }}
+        </div>
+        @endif
     <div class="card">
         <div class="card-header bg-success text-white">
             <div class="d-flex justify-content-between align-items-center">
                 <h4>User Profile</h4>
+            @foreach($user as $profile)
                 <div class="d-flex">
-                    <a href=""  class="btn btn-light mr-2">Edit Profile</a>
+                    <a href="{{ route('profile.edit', $profile->id) }}" class="btn btn-light" data-toggle="modal" data-target="#editProfile{{ $profile->id }}" mr-2>Edit Profile</a>
                     <a href="" data-toggle="modal"  data-target="#profile" class="btn btn-light">Add User Details</a>
                 </div>
             </div>
         </div>
         <div class="card-body">
-            <div class="row">
-                <div class="col-md-4">
-                    <img src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/7915728/user-icon-md.png" width="150" height="150" alt="Profile Picture" class="img-fluid rounded-circle">
-                </div>
-                <div class="col-md-8">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item"><strong>Name:</strong>Nosi Chefane</li>
-                        <li class="list-group-item"><strong>Email:</strong> john.doe@example.com</li>
-                        <li class="list-group-item"><strong>Gender:</strong>Male</li>
-                        <li class="list-group-item"><strong>Position:</strong>Administrator</li>
-                        <li class="list-group-item"><strong>Telephone Number:</strong>+26659146533</li>
-                        <li class="list-group-item"><strong>Member Since:</strong> January 1, 2022</li>
-                    </ul>
-                </div>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/7915728/user-icon-md.png" width="150" height="150" alt="Profile Picture" class="img-fluid rounded-circle">
+            </div>
+            <div class="col-md-8">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><strong>Name:</strong> {{ $profile->names }}</li>
+                    <li class="list-group-item"><strong>Email:</strong> {{ $profile->email }}</li>
+                    <li class="list-group-item"><strong>Gender:</strong> {{ $profile->gender }}</li>
+                    <li class="list-group-item"><strong>Position:</strong> {{ $profile->position }}</li>
+                    <li class="list-group-item"><strong>Telephone Number:</strong> {{ $profile->telephone }}</li>
+                    <li class="list-group-item"><strong>Member Since:</strong> {{ $profile->created_at->format('F d, Y') }}</li>
+                </ul>
             </div>
         </div>
+        <hr>
+    @endforeach
+</div>
+
     </div>
 </div>
 
@@ -48,24 +62,24 @@
             <div class="card">
                 </div>
                 <div class="card-body">
-                <form method="POST" action="/categories">
+                <form method="POST" action="/profile">
                     {{ csrf_field() }}
                     
                     <div class="form-group">
                         <label for="category_name">Names</label>
-                        <input type="text" class="form-control" id="category_name" name="category_name" placeholder="Enter  Names" required>
+                        <input type="text" class="form-control" id="names" name="names" placeholder="Enter  Names" required>
                     </div>
                     @error('names')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror<br>
                     <div class="form-group">
                         <label for="email_address">Email Address</label>
-                        <input type="text" class="form-control" id="email_address" name="email_address" placeholder="Enter Email Address" required>
+                        <input type="text" class="form-control" id="email_address" name="email" placeholder="Enter Email Address" required>
                     </div>
                     @error('email')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror<br>
-                    <select class="form-select" aria-label="Default select example">
+                    <select class="form-select" name="gender" aria-label="Default select example">
                         <option selected>Select Gender</option>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
@@ -100,28 +114,76 @@
     </div>
 
 
-<!-- @foreach ($categories as $category)
-    <div class="modal" id="deleteCategory{{$category->id}}" tabindex="-1" role="dialog">
+@foreach ($user as $profile)
+    <div class="modal" id="editProfile{{ $profile->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-        <form method="post" action="/categories/{{ $category->id }}">
-            <div class="modal-header">
-                <h5 class="modal-title">Delete Category Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-                </button>
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Update Profile Details</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+                <div class="container mt-4">
+            @if(session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+            <div class="card">
+                </div>
+                <div class="card-body">
+                <form method="POST" action="/profile/{{ $profile->id }}">
+                    {{ csrf_field() }}
+                    {{method_field('PUT')}}  
+                    <div class="form-group">
+                        <label for="category_name">Names</label>
+                        <input type="text" class="form-control" id="names" name="names" value="{{$profile->names}}" placeholder="Enter  Names" required>
+                    </div>
+                    @error('names')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror<br>
+                    <div class="form-group">
+                        <label for="email_address">Email Address</label>
+                        <input type="text" class="form-control" id="email_address" name="email" value="{{$profile->email}}" placeholder="Enter Email Address" required>
+                    </div>
+                    @error('email')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror<br>
+                    <select class="form-select" name="gender" aria-label="Default select example">
+                        <option value="" {{ $profile->gender === '' ? 'selected' : '' }}>Select Gender</option>
+                        <option value="male" {{ $profile->gender === 'male' ? 'selected' : '' }}>Male</option>
+                        <option value="female" {{ $profile->gender === 'female' ? 'selected' : '' }}>Female</option>
+                    </select>
+
+                    @error('gender')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror<br>
+                    <div class="form-group">
+                        <label for="telephone">Telephone</label>
+                        <input type="text" class="form-control" id="telephone" name="telephone"  value="{{$profile->telephone}}" placeholder="Enter Telephone" required>
+                    </div>
+                    @error('telephone')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror<br>
+                    <div class="form-group">
+                        <label for="position">Position</label>
+                        <input type="text" class="form-control" id="position" name="position"  value="{{$profile->position}}" placeholder="Enter Position Name" required>
+                    </div>
+                    @error('position')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror<br>
+
+                    <button type="submit" class="btn btn-success">Update Your Profile</button>
+                </form>
+
+                </div>
             </div>
-            <div class="modal-body">
-                <p>Are you sure you want to delete Category details of {{$category->category_name}}?</p>
             </div>
-            <div class="modal-footer">
-                {{ method_field('delete') }}
-                {{csrf_field()}}  
-                <input class="btn btn-danger" type="submit" value="Delete" />
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </form>
         </div>
     </div>
     </div>
-@endforeach    -->
+    </div>
+
+@endforeach   

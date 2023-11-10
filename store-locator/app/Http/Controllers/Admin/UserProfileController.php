@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserProfileRequest;
+use App\Http\Requests\UpdateUserProfileRequest;
 use App\Models\UserProfile;
 
 class UserProfileController extends Controller
@@ -14,7 +15,8 @@ class UserProfileController extends Controller
      */
     public function index()
     {
-        //
+        $user = UserProfile::all();
+        return view('admin.userProfile.index', compact('user'));
     }
 
     /**
@@ -31,6 +33,7 @@ class UserProfileController extends Controller
     public function store(UserProfileRequest $request)
     {
       
+        
         $validatedData = $request->validated();
         $existingUser = UserProfile::where('email', $request->input('email'))->first();
         $id = auth()->user()->id;
@@ -41,7 +44,7 @@ class UserProfileController extends Controller
         }
     
         $validatedData['admin_id'] = auth()->user()->id;
-        Category::create($validatedData);
+        UserProfile::create($validatedData);
     
         return redirect()->back()->with('success', 'Profile Added successfully.');
     }
@@ -65,9 +68,13 @@ class UserProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateUserProfileRequest $request, string $id)
     {
-        //
+        
+        $profile = UserProfile::findOrFail($id);
+        $profile->update($request->validated());
+    
+        return redirect()->back()->with('success', 'Profile updated successfully.');
     }
 
     /**

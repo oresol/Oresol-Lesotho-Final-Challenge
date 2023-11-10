@@ -6,6 +6,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Tag;
 use App\Models\Category;
+use App\Models\UserProfile;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -27,5 +28,9 @@ class AppServiceProvider extends ServiceProvider
 
         $categories = Category::all();
         View::share('categories', $categories);
+
+        $user = UserProfile::all();
+        View::share('user', $user);
+       
     }
 }

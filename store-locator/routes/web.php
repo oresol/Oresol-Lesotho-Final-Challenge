@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TagController as TagController;
 use App\Http\Controllers\Admin\CategoryController as CategoryController;
+use App\Http\Controllers\Admin\UserProfileController as UserProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +47,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('tags', TagController::class);
 Route::resource('categories', CategoryController::class);
-Route::resource('profile', CategoryController::class);
+Route::resource('profile', UserProfileController::class);
 
  
