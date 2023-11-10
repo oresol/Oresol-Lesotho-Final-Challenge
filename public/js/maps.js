@@ -1,9 +1,8 @@
-let indexedDB = window.indexedDB || window.mozIndexDB || window.webkitIndexDB || window.msIndexDB
 let db, tx, store
 
-
-
 var map = L.map('map').setView([-29.316758, 27.493764], 14);
+var layerGroup = L.layerGroup().addTo(map)
+var layerGroupCoder = L.layerGroup().addTo(map)
 
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -11,32 +10,15 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
 }).addTo(map);
 
-// localStorage.setItem('flag', "home");
 
-// var lttt = "<?=$stores?>";
-// console.log(lttt)
-
-// console.log(vayr)
-
-// var circle = L.circle([51.508, -0.11], {
-//     color: 'red',
-//     fillColor: '#f03',
-//     fillOpacity: 0.5,
-//     radius: 500
-// }).addTo(map);
-
-// var polygon = L.polygon([
-//     [51.509, -0.08],
-//     [51.503, -0.06],
-//     [51.51, -0.047]
-// ]).addTo(map);
-
-// marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-// circle.bindPopup("I am a circle.");
-// polygon.bindPopup("I am a polygon.");
-
-
-var popup = L.popup();
+try{
+    var geocoder = L.Control.geocoder({
+        defaultMarkGeocode: true
+      }).addTo(map);
+}
+catch(e){
+    console.log("Unable to search at this page", e)
+}
 
 function onMapClick(e) {
     let flag = localStorage.getItem('flag'); // 'dark'
@@ -49,11 +31,6 @@ function onMapClick(e) {
         lng.value = e.latlng.lng;
     }
     
-
-    // popup
-    //     .setLatLng(e.latlng)
-    //     .setContent("You clicked the map at " + e.latlng.toString())
-    //     .openOn(map);
 }
 
 map.on('click', onMapClick);
@@ -89,44 +66,64 @@ const setOptions = (type) =>{
     return iconOptions;
 }
 
-$(document).ready(function(){
+const getAllStores = () =>{
 
-            $.ajax({
-            url: 'getStore',
-            type: 'get',
-            dataType: 'json',
-            success: function(response){
-                indexDb(response.data)
+    const flag = localStorage.getItem('flag')
 
-                response.data.forEach(ele => {
-                    localStorage.setItem(ele.latitude.toString() + ele.longitude.toString(), ele.id.toString());
-                    var customIcon = L.icon(setOptions(ele.type))
-                    var markerOptions = {
-                        icon: customIcon
+    $.ajax({
+        url: 'getStore',
+        type: 'get',
+        dataType: 'json',
+        success: function(response){
+            indexDb(response.data)
+
+            response.data.forEach(ele => {
+                localStorage.setItem(ele.latitude.toString() + ele.longitude.toString(), ele.id.toString());
+                var customIcon = L.icon(setOptions(ele.type))
+                var markerOptions = {
+                    icon: customIcon
+                }
+                
+                var props = markerProperties(ele);
+                
+                if(flag == null || flag == undefined)
+                    var marker = L.marker([ele.latitude, ele.longitude], markerOptions ).addTo(layerGroup);
+                else
+                    {
+                        var marker = L.marker([ele.latitude, ele.longitude], markerOptions ).addTo(layerGroup).bindPopup(props);
+                        marker.on("popupopen", removeMarker);
                     }
-                    var marker = L.marker([ele.latitude, ele.longitude], markerOptions ).addTo(map ).bindPopup(buttonRemove);
-                    marker.on("popupopen", removeMarker);
-                });
-            },
-            error: function(response){
-                indexDb([])
-            }
-        });
+            });
+        },
+        error: function(response){
+            indexDb([])
+        }
+    });
+}
+
+$(document).ready(function(){
+    getAllStores()
 })
 
+const markerProperties = (store)=>{
+    const props =
+      `<div class="rosw">
+            <p class="m-0 p-0 h5 fw-bold">${store.name}</p>
+            <p class="m-0 p-0">${store.address}</p>
+            <p class="m-0 p-0">${store.telephone}</p>
+            <img width="70" height="70" src="images/${store.image}" alt="alss"> 
+            <p class="m-0 p-0">${store.tags}</p>
+     </div>`;
+    return  props;
+}
 
-const buttonRemove =
-  '<button type="button" class="remove">Selected Marker</button>';
 
-// remove marker
 function removeMarker(){
-    let flag = localStorage.getItem('flag'); // 'dark'
+    let flag = localStorage.getItem('flag'); 
     const marker = this;
     if(flag === "select")
     {
         localStorage.setItem('flag', "update");
-
-        console.log(window.location.href)
 
         let value = localStorage.getItem(marker._latlng.lat.toString()+marker._latlng.lng.toString())
         window.location.href = "store-edit/" + value
@@ -138,35 +135,9 @@ function removeMarker(){
         let value = localStorage.getItem(marker._latlng.lat.toString()+marker._latlng.lng.toString())
         window.location.href = "store-delete/" + value
     }
-    // else
-    // {
-    //     const btn = document.querySelector(".remove");
-    //     btn.addEventListener("click", function () {
-    //         console.log("marker", marker)
-    //         map.removeLayer(marker);
-    //   });
-    // }
-}
-    
-
-const setFlag = (e)=> {
-    if(e == "home"|| e == "select" || e == "home" || "create")
-    {
-        console.log("Deleted check Databsee")
-        var request = indexedDB.deleteDatabase('MyDbase')
-        request.onsuccess = ()=>{
-            console.log("Deleted Databsee")
-        }
-        if(e == "home")
-        {        
-            localStorage.clear()
-        }
-    }
-    localStorage.setItem('flag', e);
 }
 
-const indexDb = (dta)=>{
-    var coords = []
+const indexDb = (dta, filter = false)=>{
     const request = indexedDB.open('MyDbase', 1)
 
     request.onupgradeneeded = function(e){
@@ -184,15 +155,30 @@ const indexDb = (dta)=>{
             tx = db.transaction("StoresStore", "readwrite");
             store = tx.objectStore("StoresStore");
 
-            if(dta.length !== 0)
+            if(filter === true)
             {
-                dta.forEach(dt => {
-                    store.put(dt)
+                store.clear()
+                layerGroup.clearLayers();
+                dta.forEach(ele => {
+                    localStorage.setItem(ele.latitude.toString() + ele.longitude.toString(), ele.id.toString());
+                    var customIcon = L.icon(setOptions(ele.type))
+                    var markerOptions = {
+                        icon: customIcon
+                    }
+                    
+                    var props = markerProperties(ele);
+                    var marker = L.marker([ele.latitude, ele.longitude], markerOptions ).addTo(layerGroup ).bindPopup(props);
+                    marker.on("popupopen", removeMarker);
                 });
             }
-            else{
-
-                let requests = db.transaction("StoresStore").objectStore("StoresStore").getAll()
+            else if(dta.length !== 0)
+            {
+                    dta.forEach(dt => {
+                        store.put(dt)
+                    });
+            }
+        else{
+                let requests = store.getAll()
                 requests.onsuccess = () =>{
                     requests.result.forEach(ele => {
                         localStorage.setItem(ele.latitude.toString() + ele.longitude.toString(), ele.id.toString());
@@ -200,14 +186,36 @@ const indexDb = (dta)=>{
                         var markerOptions = {
                             icon: customIcon
                         }
-                        var marker = L.marker([ele.latitude, ele.longitude], markerOptions ).addTo(map ).bindPopup(buttonRemove);
-                        marker.on("popupopen", removeMarker);
+                        var marker = L.marker([ele.latitude, ele.longitude], markerOptions ).addTo(layerGroup ) 
                     });
                 }
             }
 
-
-
     }
 
 }
+
+const filterType = (e)=>{
+    var sel = document.getElementById('typeSelect');
+    if(sel.value === "")
+        getAllStores()
+    else
+        getStoresByType(sel.value)
+
+}
+
+const getStoresByType = (id) =>{
+
+    $.ajax({
+        url: 'get-stores/'+id,
+        type: 'get',
+        dataType: 'json',
+        success: function(response){
+            indexDb(response.data,true)
+        },
+        error: function(e){
+            console.error("Error retriving stores",e )
+        }
+    });
+}
+

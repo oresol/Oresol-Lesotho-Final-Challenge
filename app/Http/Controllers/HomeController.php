@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Store;
+use App\Models\Type;
 
 
 class HomeController extends Controller
@@ -15,7 +16,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth')->except(['index']);
     }
 
     /**
@@ -25,9 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $stores = Store::all();
-
-        return view('pages.home', compact('stores'));
-        // return view('pages.home', ['stores'=>$stores]);
+        $types = Type::all();
+        return view('pages.home', ['types'=>$types]);
     }
 }

@@ -8,21 +8,19 @@
             <a class="nav-link text-white" href="{{ route('login') }}">{{ __('Login') }}</a>
         </span>
     @else    
-        <span class="dropdown">
+        <span class="dropdown me-5">
             <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                {{ Auth::user()->name }}
+            {{ Auth::user()->name }} {{ Auth::user()->lastname }}
             </a>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
+            <ul class="dropdown-menu " aria-labelledby="dropdownMenuLink">
+                <li><a href="{{url('/change-password')}}" class="dropdown-item ">Change Password</a></li>
                 <li>
                     <form action="{{ route('logout') }}" method="post">
                         @csrf
-                        <button class="btn btn-light" type="submit">Logout</button>
+                        <button onclick="resetStorage()" class="btn btn-light" type="submit">Logout</button>
                     </form>
                 </li>
             </ul>
         </span>
     @endguest
-    
 </nav>

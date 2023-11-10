@@ -104,6 +104,12 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        if ($type->stores()->count()) {
+            return back()->withErrors(['error' => 'Cannot delete type that has existing stores.']);
+        }
+
+        $type->delete();
+
+        return back();
     }
 }

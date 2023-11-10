@@ -38,6 +38,9 @@
                                 </button>
                             </div>
                         </div>
+                        @if(Session::has('message'))
+                        <div class="alert alert-success mt-3" >{{Session::get('success')}}</div>
+                    @endif
                     </form>
                 </div>
             </div>

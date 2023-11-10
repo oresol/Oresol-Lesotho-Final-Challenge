@@ -11,6 +11,9 @@ class StoreDto
     public $image;
     public $type;
     public $name;
+    public $address;
+    public $telephone;
+    public $tags;
 
 }
 ?>

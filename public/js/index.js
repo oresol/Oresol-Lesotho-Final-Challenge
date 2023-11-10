@@ -1,3 +1,6 @@
+let indexedDB = window.indexedDB || window.mozIndexDB || window.webkitIndexDB || window.msIndexDB
+
+
 document.addEventListener("DOMContentLoaded", function(){
     document.querySelectorAll('.sidebar .nav-link').forEach(function(element){
       
@@ -23,3 +26,29 @@ document.addEventListener("DOMContentLoaded", function(){
       }); 
     })
   }); 
+
+
+const setFlag = (e)=> {
+    if(e == "home"|| e == "select" || e == "home" || "create")
+    {
+        var request = indexedDB.deleteDatabase('MyDbase')
+        request.onsuccess = ()=>{
+            console.log("Deleted Databsee")
+        }
+        // if(e == "home")
+        // {        
+        //     localStorage.clear()
+        // }
+    }
+    localStorage.setItem('flag', e);
+}
+
+const resetStorage = ()=>{
+  var request = indexedDB.deleteDatabase('MyDbase')
+  localStorage.clear();
+
+}
+
+const loggedIn = ()=>{
+  localStorage.setItem('flag', 'home'); 
+}

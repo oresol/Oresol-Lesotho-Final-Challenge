@@ -4,7 +4,7 @@
 
 <div class="card me-4">
     <div class="card-body">
-        <h3 class="card-title fw-bold py-4">Create new tag:</h3>
+        <h3 class="card-title fw-bold py-4 text-center rounded" style="background: #e5e4e2">Create new tag:</h3>
         <form class="w-100" action="{{url('/tag-store')}}" method="POST">
             @csrf
             <label class="fw-bold">Name</label>

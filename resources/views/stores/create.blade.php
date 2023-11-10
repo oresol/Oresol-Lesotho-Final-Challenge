@@ -12,7 +12,10 @@
     <div class="col-md-5">
         <div class="card my-2">
             <div class="card-body">
-                <h3 class="card-title fw-bold py-4">Create new store:</h3>
+                <h3 class="card-title fw-bold py-4 rounded text-center" style="background: #e5e4e2">Create new store:</h3>
+                @if ($errors->any())
+                    <span class="text-danger fw-bold mb-1" style="margin-top: 5rem" >Some errors occured!! Check below</span>                                
+                @endif            
                 <form class="w-full" action="{{url('/store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group my-3">

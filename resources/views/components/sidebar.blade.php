@@ -17,8 +17,12 @@
         <li class="nav-item has-submenu">
             <a class="nav-link text-white" href="{{url('manage-tags')}}"> Manage Tags  </a>
         </li>
-        <li class="nav-item">
-            <a class="nav-link text-white" href="#"> Account Settings </a>
+        <li class="nav-item has-submenu">
+            <a class="nav-link text-white" href="#"> Account Settings <i class="arrow down" ></i> </a>
+            <ul class="submenu collapse">
+                <li><a class="nav-link text-white" href="{{url('/user-profile')}}">Personal profile</a></li>
+                <li><a class="nav-link text-white" href="{{url('/company-profile')}}">Company profile </a></li>
+            </ul>
         </li>
         <li class="nav-item">
             <a class="nav-link text-white" href="#"> Import stores </a>

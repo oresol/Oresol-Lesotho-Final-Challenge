@@ -4,7 +4,7 @@
 
 <div class="card me-4">
     <div class="card-body">
-        <h3 class="card-title fw-bold py-4">Create new type:</h3>
+        <h3 class="card-title fw-bold py-4 border rounded text-center" style="background: #e5e4e2">Create new type:</h3>
         <form class="w-100" action="{{url('/type-store')}}" method="POST">
             @csrf
             <label class="fw-bold">Name</label>
@@ -46,6 +46,9 @@
                 </li>
             @endforeach 
         </ul>
+        @if ($errors->any())
+            <span class="text-danger fw-bold mb-1" style="margin-top: 5rem" >{{$errors->first()}}</span>                                
+        @endif 
     </div>
 </div>  
 @endsection

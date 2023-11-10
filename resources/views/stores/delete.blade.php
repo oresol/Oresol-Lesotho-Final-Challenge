@@ -34,16 +34,7 @@
         </div>
 
     </div>
-    {{-- <div class="col-md-6">
-        @include('components.map')
-        @if(Session::has('success'))
-            <div class="alert alert-success mt-2" >{{Session::get('success')}}</div>
-        @endif
-    </div> --}}
+
 </div>
 
 @endsection
-
-{{-- @section('script')
-    <script src="{{ asset('js/maps.js') }}"></script>
-@endsection --}}
