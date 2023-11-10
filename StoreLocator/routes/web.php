@@ -20,3 +20,20 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::prefix('dashboard')->group(function () {
+    Route::get('/managepoints', function () {
+        return view('dashboard.ManagePoints');
+    });
+
+     Route::get('/account-settings', function () {
+        return view('dashboard.AccountSettings');
+    });
+
+    Route::get('/store-types', function () {
+        return view('dashboard.StoreTypes');
+    });
+
+    Route::get('/tags', function () {
+        return view('dashboard.Tags');
+    });
+});
