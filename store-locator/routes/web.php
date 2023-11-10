@@ -35,6 +35,10 @@ Route::get('admin/pages/manageCategories', function () {
     return view('admin.pages.manageCategories');
 })->name('admin.pages.manageCategories');
 
+Route::get('admin/pages/manageProfile', function () {
+    return view('admin.pages.manageProfile');
+})->name('admin.pages.manageProfile');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
