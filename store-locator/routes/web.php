@@ -26,8 +26,15 @@ Route::get('admin/pages/manageTags', function () {
     return view('admin.pages.manageTags');
 })->name('admin.pages.manageTags');
 
+Route::get('admin/pages/addCategories', function () {
+    return view('admin.pages.addCategories');
+})->name('admin.pages.addCategories');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
 Route::resource('tags', TagController::class);
+
  

@@ -33,7 +33,7 @@
                         </a>
                         <div class="dropdown-menu" aria-labelledby="accountDropdown">
                             <a class="dropdown-item" href="{{ route('admin.pages.addTags') }}"><i class="fa fa-plus"></i> Add Tags</a>
-                            <a class="dropdown-item" href="{{ route('admin.pages.manageTags') }}"><i class="fa fa-tags"></i> Manage Tags</a>
+                            <a class="dropdown-item" href="{{ route('admin.tags.index') }}"><i class="fa fa-tags"></i> Manage Tags</a>
                         </div>
                     </li>
                     <li class="nav-item dropdown">
