@@ -35,12 +35,12 @@ class UserProfileController extends Controller
       
         
         $validatedData = $request->validated();
-        $existingUser = UserProfile::where('email', $request->input('email'))->first();
+        $existingUser = UserProfile::all();
         $id = auth()->user()->id;
     
         if ($existingUser) {
            
-            return redirect()->back()->with('message', 'User already exists.');
+            return redirect()->back()->with('error', 'Profile already exists.');
         }
     
         $validatedData['admin_id'] = auth()->user()->id;
