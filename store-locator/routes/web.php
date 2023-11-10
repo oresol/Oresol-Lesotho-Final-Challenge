@@ -46,5 +46,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::resource('tags', TagController::class);
 Route::resource('categories', CategoryController::class);
+Route::resource('profile', CategoryController::class);
 
  

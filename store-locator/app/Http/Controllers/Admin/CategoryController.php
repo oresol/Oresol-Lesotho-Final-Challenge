@@ -31,7 +31,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        
+        $validatedData = $request->validated();
         $existingCategory = Category::where('category_name', $request->input('category_name'))->first();
         $id = auth()->user()->id;
     
@@ -40,11 +40,9 @@ class CategoryController extends Controller
             return redirect()->back()->with('message', 'Category already exists.');
         }
     
-        $category = Category::create([
-            'category_name' => $request->input('category_name'),
-            'admin_id' => $id,
-        ]);
-    
+        $validatedData['admin_id'] = auth()->user()->id;
+        Category::create($validatedData);
+      
         return redirect()->back()->with('success', 'Category created successfully.');
     }
 

@@ -34,6 +34,7 @@ class TagController extends Controller
      */
     public function store(TagRequest $request)
     {
+        $validatedData = $request->validated();
         $existingTag = Tag::where('tag_name', $request->input('tag_name'))->first();
         $id = auth()->user()->id;
 
@@ -43,11 +44,9 @@ class TagController extends Controller
             return redirect()->back()->with('message', 'Tag already exists.');
         }
     
-        $tag = Tag::create([
-            'tag_name' => $request->input('tag_name'),
-            'admin_id' => $id,
-        ]);
-    
+        $validatedData['admin_id'] = auth()->user()->id;
+        Tag::create($validatedData);
+
         return redirect()->back()->with('success', 'Tag created successfully.');
     }
 
