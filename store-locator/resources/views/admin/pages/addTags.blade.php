@@ -25,7 +25,7 @@
                             <i class="fa fa-building"></i> Manage Stores
                         </a>
                         <div class="dropdown-menu" aria-labelledby="accountDropdown">
-                            <a class="dropdown-item" href="#"><i class="fa fa-plus"></i> Add Categories</a>
+                            <a class="dropdown-item" href="{{ route('admin.pages.addCategories') }}"><i class="fa fa-plus"></i> Add Categories</a>
                             <a class="dropdown-item" href="#"><i class="fa fa-store"></i> Manage Categories</a>
                         </div>
                     </li>

@@ -22,8 +22,8 @@
             {{ csrf_field() }}
             
             <div class="form-group">
-                <label for="author_name">Category Name</label>
-                <input type="text" class="form-control"  name="tag_name" placeholder="Enter Category Name" required>
+                <label for="category_name">Category Name</label>
+                <input type="text" class="form-control" id="category_name" name="category_name" placeholder="Enter Category Name" required>
             </div>
             @error('category_name')
                 <span class="text-danger">{{ $message }}</span>

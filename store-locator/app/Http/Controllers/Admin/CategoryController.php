@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
@@ -20,15 +22,29 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.categories.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        //
+        
+        $existingCategory = Category::where('category_name', $request->input('category_name'))->first();
+        $id = auth()->user()->id;
+    
+        if ($existingCategory) {
+           
+            return redirect()->back()->with('message', 'Category already exists.');
+        }
+    
+        $category = Category::create([
+            'category_name' => $request->input('category_name'),
+            'admin_id' => $id,
+        ]);
+    
+        return redirect()->back()->with('success', 'Category created successfully.');
     }
 
     /**
