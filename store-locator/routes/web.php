@@ -31,6 +31,10 @@ Route::get('admin/pages/addCategories', function () {
     return view('admin.pages.addCategories');
 })->name('admin.pages.addCategories');
 
+Route::get('admin/pages/manageCategories', function () {
+    return view('admin.pages.manageCategories');
+})->name('admin.pages.manageCategories');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

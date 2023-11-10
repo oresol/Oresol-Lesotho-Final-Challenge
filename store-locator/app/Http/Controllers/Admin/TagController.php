@@ -74,6 +74,7 @@ class TagController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        
         $tag->update([
             'tag_name' => $request->input('tag_name')
         ]);

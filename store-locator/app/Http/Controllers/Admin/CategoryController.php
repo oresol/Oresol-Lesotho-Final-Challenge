@@ -14,7 +14,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::all();
+        return view('admin.storeCategories.index', compact('categories'));
     }
 
     /**
@@ -60,7 +61,7 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.storeCategories.edit', compact('category'));
     }
 
     /**
@@ -68,7 +69,12 @@ class CategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->update([
+            'category_name' => $request->input('category_name')
+        ]);
+    
+        return redirect()->back()->with('success', 'Category updated successfully.');
     }
 
     /**
@@ -76,6 +82,8 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $category = Category::findOrFail($id);
+        $category->delete();
+        return redirect()->back()->with('success', 'Category deleted successfully.');
     }
 }

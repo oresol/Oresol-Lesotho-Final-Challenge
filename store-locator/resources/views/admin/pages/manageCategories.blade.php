@@ -51,7 +51,7 @@
             </div>
         </nav>
         <div class="col-md-10 d-flex align-items-center justify-content-center" style="margin-top:-30%;">
-        @include('admin.tags.index')
+        @include('admin.storeCategories.index')
         </div>
     </div>
 </div>
