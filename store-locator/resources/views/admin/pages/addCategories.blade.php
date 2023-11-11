@@ -17,8 +17,14 @@
                             <i class="fas fa-tachometer-alt"></i> Dashboard
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="#"><i class="fa fa-cog"></i> Manage Points</a>
+                     <li class="nav-item dropdown">
+                        <a class="nav-link text-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa fa-building"></i> Manage Points
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                            <a class="dropdown-item" href="{{ route('admin.pages.addStores') }}"><i class="fa fa-plus"></i> Add Stores</a>
+                            <a class="dropdown-item" href="{{ route('admin.pages.manageStores') }}"><i class="fa fa-store"></i> Manage Stores</a>
+                        </div>
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link text-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -31,7 +37,7 @@
                     </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link text-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-tags"></i> Manage Tags
+                            <i class="fa fa-tags"></i> Manage Store Categories
                         </a>
                         <div class="dropdown-menu" aria-labelledby="accountDropdown">
                             <a class="dropdown-item" href="{{ route('admin.pages.addTags') }}"><i class="fa fa-plus"></i> Add Tags</a>

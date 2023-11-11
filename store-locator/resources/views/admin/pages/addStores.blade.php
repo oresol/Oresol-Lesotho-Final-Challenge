@@ -13,11 +13,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light"  href="{{ route('home') }}">
+                        <a class="nav-link text-light" href="/home">
                             <i class="fas fa-tachometer-alt"></i> Dashboard
                         </a>
                     </li>
-                   <li class="nav-item dropdown">
+                    <li class="nav-item dropdown">
                         <a class="nav-link text-light dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa fa-building"></i> Manage Points
                         </a>
@@ -49,7 +49,7 @@
                             <i class="fa fa-user"></i> Account Settings
                         </a>
                         <div class="dropdown-menu" aria-labelledby="accountDropdown">
-                            <a class="dropdown-item"  href="{{ route('admin.pages.manageCompany') }}"><i class="fa fa-building"></i> Company Profile</a>
+                            <a class="dropdown-item" href="{{ route('admin.pages.manageCompany') }}"><i class="fa fa-building"></i> Company Profile</a>
                             <a class="dropdown-item" href="{{ route('admin.pages.manageProfile') }}"><i class="fa fa-user"></i> Personal Profile</a>
                         </div>
                     </li>
@@ -57,7 +57,7 @@
             </div>
         </nav>
         <div class="col-md-10 d-flex align-items-center justify-content-center" style="margin-top:-30%;">
-        @include('admin.tags.index')
+            @include('admin.stores.create')
         </div>
     </div>
 </div>

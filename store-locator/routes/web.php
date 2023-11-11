@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\TagController as TagController;
 use App\Http\Controllers\Admin\CategoryController as CategoryController;
 use App\Http\Controllers\Admin\UserProfileController as UserProfileController;
 use App\Http\Controllers\Admin\CompanyProfileController as CompanyProfileController;
+use App\Http\Controllers\Admin\StoreController as StoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,6 +46,14 @@ Route::get('admin/pages/manageCompany', function () {
     return view('admin.pages.manageCompany');
 })->name('admin.pages.manageCompany');
 
+Route::get('admin/pages/addStores', function () {
+    return view('admin.pages.addStores');
+})->name('admin.pages.addStores');
+
+Route::get('admin/pages/manageStores', function () {
+    return view('admin.pages.manageStores');
+})->name('admin.pages.manageStores');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -54,5 +63,6 @@ Route::resource('tags', TagController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('profile', UserProfileController::class);
 Route::resource('company', CompanyProfileController::class);
+Route::resource('stores', StoreController::class);
 
  

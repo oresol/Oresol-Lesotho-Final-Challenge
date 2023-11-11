@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Store;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreRequest;
+use App\Http\Requests\UpdateStoreRequest;
 
 class StoreController extends Controller
 {
@@ -13,7 +15,8 @@ class StoreController extends Controller
      */
     public function index()
     {
-        //
+        $stores = Store::all();
+        return view('admin.stores.index', compact('stores'));
     }
 
     /**
@@ -21,15 +24,27 @@ class StoreController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.stores.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $validatedData = $request->validated();
+        $existingStore = Store::where('address', $request->input('address'))->first();
+        $id = auth()->user()->id;
+    
+        if ($existingStore) {
+           
+            return redirect()->back()->with('message', 'Store already exists.');
+        }
+    
+        $validatedData['admin_id'] = auth()->user()->id;
+        Store::create($validatedData);
+      
+        return redirect()->back()->with('success', 'Store created successfully.');
     }
 
     /**
@@ -45,22 +60,27 @@ class StoreController extends Controller
      */
     public function edit(Store $store)
     {
-        //
+        return view('admin.stores.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Store $store)
+    public function update(UpdateStoreRequest $request, string $id)
     {
-        //
+        $store = Category::findOrFail($id);
+        $store->update($request->validated());
+    
+        return redirect()->back()->with('success', 'Store Updated Successfully.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Store $store)
+    public function destroy(string $id)
     {
-        //
+        $store = Store::findOrFail($id);
+        $store->delete();
+        return redirect()->back()->with('success', 'Store deleted successfully.');
     }
 }
