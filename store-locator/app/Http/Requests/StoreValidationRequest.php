@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreCompanyProfileRequest extends FormRequest
+class StoreValidationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,10 +22,14 @@ class StoreCompanyProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'company_name' => 'required|string|max:255,company_name',
-            'website' => 'nullable|string|max:255,website',
-            'telephone_number' => 'required|string|max:20,telephone_number',
-            'image_path' => 'required',
+            'store_name' => 'require,store_name',
+            'address' => 'required,address',
+            'telephone' => 'required,telephone',
+            'longitude' => 'required|numeric,longitude',
+            'latitude' => 'required|numeric,latitude',
+            'store_type' => 'required,store_type',
+            'tags' => 'tags',
+            'photo' => 'required,photo',
         ];
     }
 }

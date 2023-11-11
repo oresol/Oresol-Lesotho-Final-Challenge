@@ -13,10 +13,10 @@
         <div class="card-header bg-success text-white">
             <div class="d-flex justify-content-between align-items-center">
                 <h4>User Profile</h4>
-            @foreach($user as $profile)
                 <div class="d-flex">
-                    <a href="{{ route('profile.edit', $profile->id) }}" class="btn btn-light" data-toggle="modal" data-target="#editProfile{{ $profile->id }}" mr-2>Edit Profile</a>
-                    <a href="" data-toggle="modal"  data-target="#profile" class="btn btn-light">Add User Details</a>
+                  <a href="" data-toggle="modal"  data-target="#profile" class="btn btn-light">Add User Details</a>
+                 @foreach($user as $profile)
+                  <a href="{{ route('profile.edit', $profile->id) }}" class="btn btn-light" data-toggle="modal" data-target="#editProfile{{ $profile->id }}" mr-2>Edit Profile</a>
                 </div>
             </div>
         </div>

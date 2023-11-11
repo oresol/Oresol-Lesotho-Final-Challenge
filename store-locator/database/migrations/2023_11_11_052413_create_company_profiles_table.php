@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('company_name');
             $table->string('website')->nullable();
             $table->string('telephone_number');
+            $table->string('image_path');
             $table->unsignedBigInteger('admin_id');
             $table->timestamps();
 

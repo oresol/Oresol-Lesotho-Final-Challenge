@@ -14,6 +14,7 @@ class CompanyProfile extends Model
         'company_name',
         'website',
         'telephone_number',
+        'image_path',
         'admin_id',
     ];
     

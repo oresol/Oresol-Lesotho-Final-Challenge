@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCompanyProfileRequest;
 use App\Http\Requests\UpdateCompanyProfileRequest;
+use Illuminate\Support\Facades\Storage;
 use App\Models\CompanyProfile;
 
 class CompanyProfileController extends Controller
@@ -30,19 +31,30 @@ class CompanyProfileController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreCompanyProfileRequest $request)
-    {
-        $validatedData = $request->validated();
-        $adminId = auth()->user()->id;
-        $existingCompany = CompanyProfile::where('admin_id', $adminId)->first();
-    
-        if ($existingCompany) {
-            return redirect()->back()->with('error', 'You can only create one Company Profile.');
-        }
-        $validatedData['admin_id'] = $adminId;
-        CompanyProfile::create($validatedData);
-        return redirect()->back()->with('success', 'Company Profile added successfully.');
-    }
+ 
+     public function store(StoreCompanyProfileRequest $request)
+     {
+         $validatedData = $request->validated();
+         $adminId = auth()->user()->id;
+         $existingCompany = CompanyProfile::where('admin_id', $adminId)->first();
+     
+         if ($existingCompany) {
+             return redirect()->back()->with('error', 'You can only create one Company Profile.');
+         }
+     
+         $validatedData['admin_id'] = $adminId;
+     
+         if ($request->has('image_path')) {
+            $imagePath = $request->file('image_path')->store('company_images', 'public');
+            $validatedData['image_path'] = $imagePath;
+         }
+     
+         CompanyProfile::create($validatedData);
+     
+         return redirect()->back()->with('success', 'Company Profile added successfully.');
+     }
+     
+
     
 
     /**
