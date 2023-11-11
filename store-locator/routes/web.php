@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\TagController as TagController;
 use App\Http\Controllers\Admin\CategoryController as CategoryController;
 use App\Http\Controllers\Admin\UserProfileController as UserProfileController;
+use App\Http\Controllers\Admin\CompanyProfileController as CompanyProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,10 @@ Route::get('admin/pages/manageProfile', function () {
     return view('admin.pages.manageProfile');
 })->name('admin.pages.manageProfile');
 
+Route::get('admin/pages/manageCompany', function () {
+    return view('admin.pages.manageCompany');
+})->name('admin.pages.manageCompany');
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
@@ -48,5 +53,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::resource('tags', TagController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('profile', UserProfileController::class);
+Route::resource('company', CompanyProfileController::class);
 
  

@@ -32,8 +32,7 @@ class UserProfileController extends Controller
      */
     public function store(UserProfileRequest $request)
     {
-      
-        
+
         $validatedData = $request->validated();
         $existingUser = UserProfile::all();
         $id = auth()->user()->id;

@@ -43,7 +43,7 @@
                             <i class="fa fa-user"></i> Account Settings
                         </a>
                         <div class="dropdown-menu" aria-labelledby="accountDropdown">
-                            <a class="dropdown-item" href="#"><i class="fa fa-building"></i> Company Profile</a>
+                            <a class="dropdown-item"  href="{{ route('admin.pages.manageCompany') }}"><i class="fa fa-building"></i> Company Profile</a>
                             <a class="dropdown-item" href="{{ route('admin.pages.manageProfile') }}"><i class="fa fa-user"></i> Personal Profile</a>
                         </div>
                     </li>

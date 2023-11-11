@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\Tag;
 use App\Models\Category;
 use App\Models\UserProfile;
+use App\Models\CompanyProfile;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,6 +32,9 @@ class AppServiceProvider extends ServiceProvider
 
         $user = UserProfile::all();
         View::share('user', $user);
+
+        $company = CompanyProfile::all();
+        View::share('company', $company);
        
     }
 }
