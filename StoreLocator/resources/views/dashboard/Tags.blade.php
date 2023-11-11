@@ -2,22 +2,15 @@
 
 @section('content')
     <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">{{ __('Dashboard') }}</div>
-
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success" role="alert">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-
-                        Magate tags
-                    </div>
-                </div>
+        <div class="card">
+            <div class="card-header d-flex p-2 justify-content-between">
+                {{ __('Manage Tags') }}
+                <a href="/dashboard/addtaggs" class="btn btn-primary ">Add Tag</a>
+            </div>
+            <div class="mt-4">
+                @include('components.Tags')
             </div>
         </div>
+    </div>
     </div>
 @endsection

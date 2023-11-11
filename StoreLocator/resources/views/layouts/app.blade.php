@@ -15,6 +15,7 @@
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
+
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
@@ -72,57 +73,56 @@
                                     </form>
                                 </div>
                             </li>
-
+                        @endguest
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container-fluid ">
+            <div class="row">
+                <nav id="sidebar" style="height: 98vh"
+                    class="col-md-3 col-lg-2 d-md-block bg-text-secondary sidebar bg-primary  shadow-sm">
+                    <div class="position-sticky">
+                        <ul class="nav flex-column text-secondary p-4">
+                            <li class="nav-item">
+                                <a class="nav-link active text-white" href="/home">
+                                    <i class="bi bi-grid-1x2-fill"></i>
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="/dashboard/managepoints">
+                                    <i class="bi  bi-geo-fill"></i>
+                                    Manage Points
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="/dashboard/account-settings">
+                                    <i class="bi bi-person-fill"></i>
+                                    Account Settings
+                                </a>
+                            </li>
+                            <li class="nav-item ">
+                                <a class="nav-link text-white" href="/dashboard/store-types">
+                                    <i class="bi bi bi-map-fill"></i>
+                                    Store Types
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-white" href="/dashboard/tags">
+                                    <i class="bi bi-tags-fill"></i>
+                                    Manage Tags
+                                </a>
+                            </li>
                         </ul>
                     </div>
-                </div>
-            </nav>
-            <div class="container-fluid ">
-                <div class="row">
-                    <nav id="sidebar" style="height: 98vh"
-                        class="col-md-3 col-lg-2 d-md-block bg-text-secondary sidebar bg-primary  shadow-sm">
-                        <div class="position-sticky">
-                            <ul class="nav flex-column text-secondary p-4">
-                                <li class="nav-item">
-                                    <a class="nav-link active text-white" href="/home">
-                                        <i class="bi bi-grid-1x2-fill"></i>
-                                        Dashboard
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="/dashboard/managepoints">
-                                        <i class="bi  bi-geo-fill"></i>
-                                        Manage Points
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="/dashboard/account-settings">
-                                        <i class="bi bi-person-fill"></i>
-                                        Account Settings
-                                    </a>
-                                </li>
-                                <li class="nav-item ">
-                                    <a class="nav-link text-white" href="/dashboard/store-types">
-                                        <i class="bi bi bi-map-fill"></i>
-                                        Store Types
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-white" href="/dashboard/tags">
-                                        <i class="bi bi-tags-fill"></i>
-                                        Manage Tags
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
-                        <div class="container-fluid">
-                            @yield('content')
-                        </div>
-                    </main>
-                </div>
-            @endguest
+                </nav>
+                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
+                    <div class="container-fluid">
+                        @yield('content')
+                    </div>
+                </main>
+            </div>
         </div>
     </div>
 </body>

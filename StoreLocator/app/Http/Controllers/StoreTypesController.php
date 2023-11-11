@@ -13,7 +13,8 @@ class StoreTypesController extends Controller
      */
     public function index()
     {
-        //
+        $storeTypes = StoreTypes::all();
+        return view('dashboard.StoreTypes')->with('storeTypes', $storeTypes);
     }
 
     /**
@@ -21,7 +22,7 @@ class StoreTypesController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.StoreTypes.AddTypes');
     }
 
     /**
@@ -29,7 +30,8 @@ class StoreTypesController extends Controller
      */
     public function store(StoreStoreTypesRequest $request)
     {
-        //
+         StoreTypes::create($request->validated());
+        return back()->with('success', 'Store Type Added successfully!');
     }
 
     /**
@@ -43,24 +45,26 @@ class StoreTypesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(StoreTypes $storeTypes)
+    public function edit(StoreTypes $storetype)
     {
-        //
+          return view('dashboard.StoreTypes.EditTypes')->with('storetype', $storetype);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateStoreTypesRequest $request, StoreTypes $storeTypes)
+    public function update(UpdateStoreTypesRequest $request, StoreTypes $storetype)
     {
-        //
+        $storetype->update($request->validated());
+        return back()->with('success', 'Store Type updated successfully!');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(StoreTypes $storeTypes)
+    public function destroy(StoreTypes $storetype)
     {
-        //
+        $storetype->delete();
+        return back()->with('success', 'Store Type deleted successfully!');
     }
 }
