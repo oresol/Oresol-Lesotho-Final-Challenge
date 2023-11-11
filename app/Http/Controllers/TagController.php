@@ -63,7 +63,7 @@ class TagController extends Controller
      */
     public function edit(Store $store)
     {
-        //
+        
     }
 
     /**
@@ -78,7 +78,6 @@ class TagController extends Controller
         $tag->update([
             'tagname'=> $request->tagname
         ]);
-
         return back();
     }
 

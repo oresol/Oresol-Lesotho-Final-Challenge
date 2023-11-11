@@ -22,13 +22,19 @@ catch(e){
 
 function onMapClick(e) {
     let flag = localStorage.getItem('flag'); // 'dark'
-    
+
     if(flag=="create" || flag == "update")
     {
-        var lat = document.getElementById('latitude');
-        var lng = document.getElementById('longitude');
-        lat.value = e.latlng.lat;
-        lng.value = e.latlng.lng;
+        try{
+            var lat = document.getElementById('latitude');
+            var lng = document.getElementById('longitude');
+            lat.value = e.latlng.lat;
+            lng.value = e.latlng.lng;
+        }
+        catch(e)
+        {
+            console.log("Error occured", e)
+        }
     }
     
 }
@@ -71,7 +77,7 @@ const getAllStores = () =>{
     const flag = localStorage.getItem('flag')
 
     $.ajax({
-        url: 'getStore',
+        url: 'get-stores',
         type: 'get',
         dataType: 'json',
         success: function(response){
@@ -83,16 +89,17 @@ const getAllStores = () =>{
                 var markerOptions = {
                     icon: customIcon
                 }
-                
                 var props = markerProperties(ele);
                 
                 if(flag == null || flag == undefined)
+                {
                     var marker = L.marker([ele.latitude, ele.longitude], markerOptions ).addTo(layerGroup);
+                }
                 else
-                    {
-                        var marker = L.marker([ele.latitude, ele.longitude], markerOptions ).addTo(layerGroup).bindPopup(props);
-                        marker.on("popupopen", removeMarker);
-                    }
+                {
+                    var marker = L.marker([ele.latitude, ele.longitude], markerOptions ).addTo(layerGroup).bindPopup(props);
+                    marker.on("popupopen", removeMarker);
+                }
             });
         },
         error: function(response){

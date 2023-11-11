@@ -20,45 +20,34 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-
-// Route::get('/', function () {
-//     return view('pages.home');
-// });
-
-
 Route::get('/company-profile', function () {
     return view('pages.company');
 });
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/', [HomeController::class, 'index'])->name('home');
 
-Route::get('/store-create', [StoreController::class, 'create'])->name('storecreate');
-Route::get('/store-select', [StoreController::class, 'index'])->name('getstores');
-Route::get('/store-delete/{id}', [StoreController::class, 'delete'])->name('storedeleteget');
-Route::delete('/store-delete/{store}', [StoreController::class, 'destroy'])->name('storedelete');
-Route::get('/store-edit/{id}', [StoreController::class, 'edit'])->name('storeedit');
-Route::post('/store-update/{store}', [StoreController::class, 'update'])->name('storeupdate');
-Route::post('/store', [StoreController::class, 'store'])->name('store');
-Route::get('/getStore', [StoreController::class, 'getStores']);
-Route::get('/get-stores/{id}', [StoreController::class, 'getStoresByType'])->name('storesbytype');
-// Route::get('/search-stores', [StoreController::class, 'storesAddress'])->name('storesbyaddress');
-// Route::get('/search-stores/{address}', [StoreController::class, 'getStoresAddress'])->name('gtstoresbyaddress');
+Route::controller(StoreController::class)->group(function() {
+    Route::get('store-create', 'create')->name('store.create');
+    Route::get('store-select', 'index')->name('store.index');
+    Route::get('store-delete/{id}', 'delete')->name('store.delete');
+    Route::delete('store-delete/{store}', 'destroy')->name('store.destroy');
+    Route::get('store-edit/{id}', 'edit')->name('store.edit');
+    Route::post('store-update/{store}', 'update')->name('store.update');
+    Route::post('store', 'store')->name('stores.store');
+    Route::get('get-stores', 'getstores');
+    Route::get('get-stores/{id}', 'getstoresbytype')->name('storesbytype');
+    Route::post('stores-read', 'readstores')->name('stores.read');
+    Route::get('read-file', 'readfile')->name('file.read');
+});
 
+Route::resource('type', TypeController::class);
+Route::resource('tags', TagController::class);
 
-Route::get('/manage-type', [TypeController::class, 'index'])->name('managetype');
-Route::delete('/type-delete/{type}', [TypeController::class, 'destroy'])->name('typedelete');
-Route::post('/type-update/{type}', [TypeController::class, 'update'])->name('typeupdate');
-Route::post('/type-store', [TypeController::class, 'store'])->name('typestore');
-
-
-Route::get('/manage-tags', [TagController::class, 'index'])->name('managetags');
-Route::delete('/tag-delete/{tag}', [TagController::class, 'destroy'])->name('tagdelete');
-Route::post('/tag-store', [TagController::class, 'store'])->name('tagstore');
-Route::post('/tag-update/{tag}', [TagController::class, 'update'])->name('tagupdate');
-
-Route::get('/change-password', [UserController::class, 'edit'])->name('changepassword');
-Route::post('/update-password', [UserController::class, 'update_password'])->name('updatepassword');
-Route::get('/user-profile', [UserController::class, 'index'])->name('userprofile');
+Route::controller(UserController::class)->group(function() {
+    Route::get('change-password', 'edit')->name('changepassword');
+    Route::post('update-password', 'update')->name('updatepassword');
+    Route::get('user-profile', 'index')->name('userprofile');
+});
 
 
 Auth::routes();

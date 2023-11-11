@@ -16,7 +16,7 @@
                 @if ($errors->any())
                     <span class="text-danger fw-bold mb-1" style="margin-top: 5rem" >Some errors occured!! Check below</span>                                
                 @endif            
-                <form class="w-full" action="{{url('/store')}}" method="POST" enctype="multipart/form-data">
+                <form class="w-full" action="{{route('stores.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group my-3">
                             <label for="name" class="fw-bold">name</label>

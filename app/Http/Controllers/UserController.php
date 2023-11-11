@@ -9,7 +9,7 @@ use App\Http\Requests\ChangePasswordRequest;
 
 class UserController extends Controller
 {
-    public function update_password(ChangePasswordRequest $request)
+    public function update(ChangePasswordRequest $request)
     {
         
         if(Hash::check($request->old_password, auth()->user()->password))

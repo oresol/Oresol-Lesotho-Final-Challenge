@@ -9,7 +9,7 @@
         <div class="card my-2">
             <div class="card-body">
                 <h3 class="card-title fw-bold py-4">Delete store:</h3>
-                <form class="w-full" action="{{route('storedelete', $store->id)}}" method="POST" enctype="multipart/form-data">
+                <form class="w-full" action="{{route('store.destroy', $store->id)}}" method="POST" enctype="multipart/form-data">
                     @csrf
                     @method('DELETE')
                     <div class="form-group my-3">

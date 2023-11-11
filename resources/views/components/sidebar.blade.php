@@ -6,16 +6,16 @@
         <li class="nav-item has-submenu">
             <a class="nav-link text-white" href="#"> Manage Stores <i class="arrow down" ></i> </a>
             <ul class="submenu collapse">
-                <li><a class="nav-link text-white" onclick="setFlag('create')" href="{{route('storecreate')}}">Create</a></li>
-                <li><a class="nav-link text-white" onclick="setFlag('delete')" href="{{route('getstores')}}">Delete </a></li>
-                <li><a class="nav-link text-white" onclick="setFlag('select')" href="{{route('getstores')}}">Update </a> </li>
+                <li><a class="nav-link text-white" onclick="setFlag('create')" href="{{route('store.create')}}">Create</a></li>
+                <li><a class="nav-link text-white" onclick="setFlag('delete')" href="{{route('store.index')}}">Delete </a></li>
+                <li><a class="nav-link text-white" onclick="setFlag('select')" href="{{route('store.index')}}">Update </a> </li>
             </ul>
         </li>
         <li class="nav-item has-submenu">
-            <a class="nav-link text-white" href="{{url('manage-type')}}"> Manage Types </a>
+            <a class="nav-link text-white" href="{{url('type')}}"> Manage Types </a>
         </li>
         <li class="nav-item has-submenu">
-            <a class="nav-link text-white" href="{{url('manage-tags')}}"> Manage Tags  </a>
+            <a class="nav-link text-white" href="{{url('tags')}}"> Manage Tags  </a>
         </li>
         <li class="nav-item has-submenu">
             <a class="nav-link text-white" href="#"> Account Settings <i class="arrow down" ></i> </a>
@@ -25,7 +25,7 @@
             </ul>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-white" href="#"> Import stores </a>
+            <a class="nav-link text-white" href="{{route('file.read')}}"> Import stores </a>
         </li>
     </ul>
     </nav>

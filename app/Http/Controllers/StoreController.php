@@ -16,7 +16,7 @@ class StoreController extends Controller
 {
     public function __construct()
     {
-        $this->middleware('auth')->except(['getStores']);
+        $this->middleware('auth')->except(['getstores']);
     }
 
     private function createStoreDto($store)
@@ -35,7 +35,7 @@ class StoreController extends Controller
         return $storeDto;
     }
 
-    public function getStores(){
+    public function getstores(){
 
         $stores = Store::all();
         
@@ -56,7 +56,7 @@ class StoreController extends Controller
         return response()->json($response);
     }
 
-    public function getStoresByType(int $type)
+    public function getstoresbytype(int $type)
     {
 
         $stores = DB::select( DB::raw("SELECT * FROM stores WHERE type_id = :var"), 
@@ -161,8 +161,6 @@ class StoreController extends Controller
      */
     public function edit(int $id)
     {
-        // $id = (int)$id;
-
         $store = Store::find($id);
 
         $types = Type::all();
@@ -237,5 +235,28 @@ class StoreController extends Controller
         {
             unlink(public_path('images/'.$image));
         }
+    }
+
+    public function readstores(Request $request)
+    {
+        $request->validate([
+            'file'=> 'required'
+        ]);
+
+        $file_ext = $request->file('file')->getClientOriginalExtension();
+        $filename = 'storesFile.' . $file_ext;
+        $request->file->move(public_path('Excel'), $filename);
+        
+        $excel = new PHPExcel();
+
+
+        dd($filename);
+
+        // return view('stores.fileread');
+    }
+    public function readfile()
+    {
+
+        return view('stores.fileread');
     }
 }

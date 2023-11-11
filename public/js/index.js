@@ -44,11 +44,13 @@ const setFlag = (e)=> {
 }
 
 const resetStorage = ()=>{
+  console.log("herere out")
   var request = indexedDB.deleteDatabase('MyDbase')
   localStorage.clear();
 
 }
 
 const loggedIn = ()=>{
+  console.log("herere in")
   localStorage.setItem('flag', 'home'); 
 }
