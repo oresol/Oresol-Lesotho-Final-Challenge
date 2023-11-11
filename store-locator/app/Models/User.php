@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Category::class);
     }
+
+        public function companyProfile()
+    {
+        return $this->hasOne(CompanyProfile::class, 'admin_id');
+    }
 }
