@@ -10,6 +10,7 @@ use Illuminate\Http\Request;
 use DB;
 use App\Http\Requests\StoreRequest;
 use Illuminate\Support\Facades\Storage;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 
 class StoreController extends Controller
@@ -119,7 +120,7 @@ class StoreController extends Controller
         $img_ext = $request->file('image')->getClientOriginalExtension();
         $filename = time() . '.' . $img_ext;
 
-        $request->image->move(public_path('images'), $filename);
+        $request->image->move(public_path('images/storeimages'), $filename);
         
         $store = auth()->user()->stores()->create([
             'name' => $request->name,
@@ -187,9 +188,10 @@ class StoreController extends Controller
     {
         $img_ext = $request->file('image')->getClientOriginalExtension();
         $filename = time() . '.' . $img_ext;
-        $request->image->move(public_path('images'), $filename);
+        $request->image->move(public_path('images/storeimages'), $filename);
 
-        $this->removeImage($store->image);
+        if($store->image !== null)
+            $this->removeFile("images/storeimages/".$store->image);
         
         $store->update([
             'name' => $request->name,
@@ -210,7 +212,7 @@ class StoreController extends Controller
         }
         $store->tags()->sync($newTags);
 
-        return redirect('/');//->with('success', 'Store Updated');
+        return redirect('/');
     }
 
     /**
@@ -220,8 +222,9 @@ class StoreController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Store $store)
-    {        
-        $this->removeImage($store->image);
+    {
+        if($store->image !== null)
+            $this->removeFile("images/storeimages/".$store->image);
         
         $store->tags()->detach();
         $store->delete();
@@ -229,16 +232,17 @@ class StoreController extends Controller
         return redirect('/');
     }
 
-    private function removeImage(string $image)
+    private function removeFile(string $path)
     {
-        if(file_exists(public_path('images/'.$image)))
+        if(file_exists(public_path($path)))
         {
-            unlink(public_path('images/'.$image));
+            unlink(public_path($path));
         }
     }
 
     public function readstores(Request $request)
     {
+
         $request->validate([
             'file'=> 'required'
         ]);
@@ -247,16 +251,55 @@ class StoreController extends Controller
         $filename = 'storesFile.' . $file_ext;
         $request->file->move(public_path('Excel'), $filename);
         
-        $excel = new PHPExcel();
+        $spreadsheet = IOFactory::load('Excel/'.$filename);
 
+        $worksheet = $spreadsheet->getActiveSheet();
+        $rows = $worksheet->toArray();
 
-        dd($filename);
+        foreach ($rows as $key=>$row) {
 
-        // return view('stores.fileread');
+            if($key == 0)
+            {
+                if(implode("", $row) !== "nameaddresstelephonelongitudelatitudetypetags")
+                {
+                    return back()->withErrors(['errors' => 'Wrong file format, ensure the rows are as in the example above']);
+                }
+            }
+            else{
+                try{
+
+                    $type = Type::firstOrCreate(['typename' => $row[5]]);
+
+                    $store = auth()->user()->stores()->create([
+                        'name' => $row[0],
+                        'address' => $row[1],
+                        'telephone' => $row[2],
+                        'longitude' => $row[3],
+                        'latitude' => (0 - (double)substr($row[4], 1)),
+                        'type_id' => $type->id
+                    ]);
+                    
+                    $tags = explode(',', $row[6]);
+            
+                    foreach ($tags as $tagName) {
+                        $tag = Tag::firstOrCreate(['tagname' => trim($tagName)]);
+                        $store->tags()->attach($tag);
+                    }
+                    
+                }
+                catch(Exception $e)
+                {
+                    return back()->withErrors(['errors' => 'Wrong content format, ensure latitude values are stored as in the example above']);
+                }
+            }
+
+        }
+
+        $this->removeFile('Excel/'.$filename);
+        return back()->with(['success' => 'Stores successfully uploaded']);
     }
     public function readfile()
     {
-
         return view('stores.fileread');
     }
 }

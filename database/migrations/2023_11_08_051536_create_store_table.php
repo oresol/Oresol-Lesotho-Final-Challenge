@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('telephone');
             $table->double('latitude', 15, 8);
             $table->double('longitude', 15, 8);
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('type_id')->constrained();
             // $table->bigInteger('category_id')->unsigned();

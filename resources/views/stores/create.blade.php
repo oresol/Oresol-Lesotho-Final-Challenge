@@ -95,7 +95,6 @@
         @include('components.map')
         @if(Session::has('success'))
             <div class="alert alert-success mt-2" >{{Session::get('success')}}</div>
-            {{-- @include('components.modal') --}}
         @endif
     </div>
 </div>

@@ -113,14 +113,19 @@ $(document).ready(function(){
 })
 
 const markerProperties = (store)=>{
-    const props =
-      `<div class="rosw">
-            <p class="m-0 p-0 h5 fw-bold">${store.name}</p>
-            <p class="m-0 p-0">${store.address}</p>
-            <p class="m-0 p-0">${store.telephone}</p>
-            <img width="70" height="70" src="images/${store.image}" alt="alss"> 
-            <p class="m-0 p-0">${store.tags}</p>
-     </div>`;
+    const props = store.image == null ? `<div class="rosw">
+                <p class="m-0 p-0 h5 fw-bold">${store.name}</p>
+                <p class="m-0 p-0">${store.address}</p>
+                <p class="m-0 p-0">${store.telephone}</p>
+                <img width="70" height="70" src="images/assets/noimage.jpg" alt="alss"> 
+                <p class="m-0 p-0">${store.tags}</p>
+            </div>`:  `<div class="rosw">
+                    <p class="m-0 p-0 h5 fw-bold">${store.name}</p>
+                    <p class="m-0 p-0">${store.address}</p>
+                    <p class="m-0 p-0">${store.telephone}</p>
+                    <img width="70" height="70" src="images/storeimages/${store.image}" alt="alss"> 
+                    <p class="m-0 p-0">${store.tags}</p>
+            </div>`;
     return  props;
 }
 
