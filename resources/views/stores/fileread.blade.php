@@ -9,14 +9,38 @@
 
 
 <div class="row d-flex justify-content-center" style="margin-top: 0rem">
-    <div class="col-md-6">
+    <div class="col-md-9">
         <div class="card my-2 ">
             <div class="card-body">
                 <h3 class="card-title fw-bold py-4 rounded text-center" style="background: #e5e4e2">Upload stores from file</h3>
 
-                <p class="fw-bold m-0">NB: Please ensure stores are stored in the format displayed in the example below</p>
-                <p class="fw-bold mt-0 p-0">(n) infront of latitude stands for negative(-) sign</p>
-                <img src="{{asset('images/assets/format.png')}}" width="550" alt="format" srcset="">
+                <p class="fw-bold m-0">-- NB: Please ensure stores are stored in the format displayed in the example below</p>
+                <p class="fw-bold m-0 p-0">-- (n) infront of latitude stands for negative(-) sign</p>
+                <p class="fw-bold mt-0 p-0">-- First row should be column names</p>
+                <table class="table">
+                    <thead>
+                      <tr>
+                        <th scope="col">name</th>
+                        <th scope="col">address</th>
+                        <th scope="col">telephone</th>
+                        <th scope="col">longitude</th>
+                        <th scope="col">latitude</th>
+                        <th scope="col">type</th>
+                        <th scope="col">tags</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Retail Str</td>
+                        <td>Maseru</td>
+                        <td>57883366</td>
+                        <td>27.502993</td>
+                        <td>n29.313195</td>
+                        <td>Spaza</td>
+                        <td>tags,tag3</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 <form action="{{route('stores.read')}}" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="form-group my-3">

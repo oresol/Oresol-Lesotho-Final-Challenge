@@ -35,10 +35,6 @@ const setFlag = (e)=> {
         request.onsuccess = ()=>{
             console.log("Deleted Databsee")
         }
-        // if(e == "home")
-        // {        
-        //     localStorage.clear()
-        // }
     }
     localStorage.setItem('flag', e);
 }

@@ -81,7 +81,7 @@ const getAllStores = () =>{
         type: 'get',
         dataType: 'json',
         success: function(response){
-            indexDb(response.data)
+            indexDb(response.data, false, false)
 
             response.data.forEach(ele => {
                 localStorage.setItem(ele.latitude.toString() + ele.longitude.toString(), ele.id.toString());
@@ -113,19 +113,15 @@ $(document).ready(function(){
 })
 
 const markerProperties = (store)=>{
-    const props = store.image == null ? `<div class="rosw">
+
+    const props = `<div class="rosw">
                 <p class="m-0 p-0 h5 fw-bold">${store.name}</p>
                 <p class="m-0 p-0">${store.address}</p>
-                <p class="m-0 p-0">${store.telephone}</p>
-                <img width="70" height="70" src="images/assets/noimage.jpg" alt="alss"> 
-                <p class="m-0 p-0">${store.tags}</p>
-            </div>`:  `<div class="rosw">
-                    <p class="m-0 p-0 h5 fw-bold">${store.name}</p>
-                    <p class="m-0 p-0">${store.address}</p>
-                    <p class="m-0 p-0">${store.telephone}</p>
-                    <img width="70" height="70" src="images/storeimages/${store.image}" alt="alss"> 
-                    <p class="m-0 p-0">${store.tags}</p>
-            </div>`;
+                <p class="m-0 p-0">${store.telephone}</p>` + (store.image == null ? 
+                `<img width="70" height="70" src="images/assets/noimage.jpg" alt="alss">` : 
+                `<img width="70" height="70" src="images/storeimages/${store.image}" alt="alss">`) +
+                 `<p class="m-0 p-0">${store.tags}</p>`
+
     return  props;
 }
 
@@ -149,7 +145,7 @@ function removeMarker(){
     }
 }
 
-const indexDb = (dta, filter = false)=>{
+const indexDb = (dta, filter = false, removed = true)=>{
     const request = indexedDB.open('MyDbase', 1)
 
     request.onupgradeneeded = function(e){
@@ -190,16 +186,19 @@ const indexDb = (dta, filter = false)=>{
                     });
             }
         else{
-                let requests = store.getAll()
-                requests.onsuccess = () =>{
-                    requests.result.forEach(ele => {
-                        localStorage.setItem(ele.latitude.toString() + ele.longitude.toString(), ele.id.toString());
-                        var customIcon = L.icon(setOptions(ele.type))
-                        var markerOptions = {
-                            icon: customIcon
-                        }
-                        var marker = L.marker([ele.latitude, ele.longitude], markerOptions ).addTo(layerGroup ) 
-                    });
+                if(removed)
+                {
+                    let requests = store.getAll()
+                    requests.onsuccess = () =>{
+                        requests.result.forEach(ele => {
+                            localStorage.setItem(ele.latitude.toString() + ele.longitude.toString(), ele.id.toString());
+                            var customIcon = L.icon(setOptions(ele.type))
+                            var markerOptions = {
+                                icon: customIcon
+                            }
+                            var marker = L.marker([ele.latitude, ele.longitude], markerOptions ).addTo(layerGroup ) 
+                        });
+                    }
                 }
             }
 

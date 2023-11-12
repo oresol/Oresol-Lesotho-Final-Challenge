@@ -26,7 +26,6 @@ class StoreController extends Controller
 
         $storeDto->id = $store->id;
         $storeDto->name = $store->name;
-        // $storeDto->type = $store->type->typename;
         $storeDto->type = Type::find($store->type_id)->typename; 
         $storeDto->latitude = $store->latitude;
         $storeDto->longitude = $store->longitude;
@@ -260,7 +259,7 @@ class StoreController extends Controller
 
             if($key == 0)
             {
-                if(implode("", $row) !== "nameaddresstelephonelongitudelatitudetypetags")
+                if(strtolower(implode("", $row)) !== "nameaddresstelephonelongitudelatitudetypetags")
                 {
                     return back()->withErrors(['errors' => 'Wrong file format, ensure the rows are as in the example above']);
                 }
