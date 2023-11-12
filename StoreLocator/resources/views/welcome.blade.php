@@ -25,8 +25,9 @@
     <div id="home">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
+                <img src="{{ asset('location.png') }}"alt="" style="height: 3em" />
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'StoreLocator') }}
+                    StoreLocator
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -90,6 +91,7 @@
     <script src="https://unpkg.com/leaflet-providers@1.12.0/leaflet-providers.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Maseru coordinates
             var maseruLatitude = -29.313443081134025;
             var maseruLongitude = 27.48445138879433;
             var map = L.map('map').setView([maseruLatitude, maseruLongitude], 13);

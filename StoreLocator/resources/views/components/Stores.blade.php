@@ -44,15 +44,19 @@
                     {{ $store->company->companyName }}
                 </td>
                 <td>
-                    <button type="button" class="btn btn-primary btn-sm btn-rounded">
+                    <form action="/stores/{{ $store->id }} method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm btn-rounded">
+                            Delete
+                        </button>
+                    </form>
+                    <a href="/stores/{{ $store->id }}/edit" class="btn btn-primary btn-sm btn-rounded">
                         Edit
-                    </button>
-                    <button type="button" class="btn btn-danger btn-sm btn-rounded">
-                        Delete
-                    </button>
-                    <button type="button" class="btn btn-success btn-sm btn-rounded">
+                    </a>
+                    <a href="/stores/{{ $store->id }}" class="btn btn-success btn-sm btn-rounded">
                         View
-                    </button>
+                    </a>
                 </td>
             </tr>
         @endforeach
