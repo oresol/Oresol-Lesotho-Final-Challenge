@@ -61,7 +61,7 @@
                 <select class="form-select" name="store_type" aria-label="Default select example">
                     <option selected>Select Store Type</option>
                     @foreach ($categories as $category)
-                    <option value="{{ $category['id'] }}">{{ $category['category_name'] }}</option>
+                    <option value="{{ $category['category_name'] }}">{{ $category['category_name'] }}</option>
                     @endforeach
                 </select>
             </div>

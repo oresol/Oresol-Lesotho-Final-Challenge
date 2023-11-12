@@ -75,7 +75,7 @@ class StoreController extends Controller
      */
     public function update(UpdateStoreRequest $request, string $id)
     {
-        $store = Category::findOrFail($id);
+        $store = Store::findOrFail($id);
         $store->update($request->validated());
     
         return redirect()->back()->with('success', 'Store Updated Successfully.');
