@@ -32,7 +32,7 @@ class CategoryController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        return ("hello worrld");
+
         $validatedData = $request->validated();
         $existingCategory = Category::where('category_name', $request->input('category_name'))->first();
         $id = auth()->user()->id;
