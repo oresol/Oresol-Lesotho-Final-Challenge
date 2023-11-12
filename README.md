@@ -44,8 +44,8 @@ Sidebar with these page links:
       - Latitude
       - Type (Spaza, Container, Stand Alone, Inside Mall, Hawker)
       - Photo
-      - Tags (ex. New lead, Customer, Negotiation)
-
+      -
+      
 - Account settings:
 
     -  Company section
