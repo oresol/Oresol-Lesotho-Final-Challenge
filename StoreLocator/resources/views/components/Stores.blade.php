@@ -16,7 +16,7 @@
             <tr>
                 <td>
                     <div class="d-flex align-items-center">
-                        <img src="https://mdbootstrap.com/img/new/avatars/8.jpg" alt=""
+                        <img src="{{ asset('storage/' . $store->storePhoto) }}" alt=""
                             style="width: 40px; height: 40px" class="rounded-circle" />
                         <div class="ms-3">
                             <p class="fw-bold mb-1">{{ $store->storeName }}</p>

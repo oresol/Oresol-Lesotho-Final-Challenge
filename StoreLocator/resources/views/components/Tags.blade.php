@@ -17,7 +17,7 @@
                     <form action="/tags/{{ $tag->id }}" method="POST">
                         @method('DELETE')
                         @csrf
-                        <a href="/edit-tag" class="btn btn-primary">Edit</a>
+                        <a href="/tags/{{ $tag->id }}/edit" class="btn btn-primary">Edit</a>
                         <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </td>

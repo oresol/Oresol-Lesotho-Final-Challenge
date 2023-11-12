@@ -44,17 +44,17 @@ class TagsController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tags $tags)
+    public function edit(Tags $tag)
     {
-        return back()->with('success', 'Tag updated successfully!');
+        return view('dashboard.tags.EditTag')->with('tag', $tag);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateTagsRequest $request, Tags $tags)
+    public function update(UpdateTagsRequest $request, Tags $tag)
     {
-        $tags->update($request->validated());
+        $tag->update($request->validated());
         return back()->with('success', 'Tag updated successfully!');
     }
 

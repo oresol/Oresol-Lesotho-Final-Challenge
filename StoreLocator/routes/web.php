@@ -33,8 +33,16 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::prefix('dashboard')->group(function () {
 
     Route::get('/addtaggs', function () {
-        return view('dashboard.AddTaggs');
+        return view('dashboard.tags.AddTaggs');
         });
+
+    Route::get('/tags', function () {
+            return view('dashboard.tags.Tags'); 
+    });
+
+     Route::get('/edit-tags', function () {
+            return view('dashboard.tags.EditTag'); 
+    });
 
     Route::get('/managepoints', function () {
         return view('dashboard.Stores.ManagePoints');
@@ -52,9 +60,6 @@ Route::prefix('dashboard')->group(function () {
         return view('dashboard.StoreTypes.StoreTypes');
     });
 
-    Route::get('/tags', function () {
-        return view('dashboard.Tags'); 
-    });
 
     Route::get('/add-store-stype', function () {
         return view('dashboard.StoreTypes.AddTypes'); 
