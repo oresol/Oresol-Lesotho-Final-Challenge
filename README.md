@@ -119,3 +119,10 @@ Here's the list of features you need to try to implement in your code:
 - File Uploads and Storage Folder Basics
 - Table Pagination
 
+**How To Run The Apllication**	
+
+- Run : php artisan migrate --seed
+- Run : npm install
+- Run : npm run dev
+- Run : php artisan serve
+
