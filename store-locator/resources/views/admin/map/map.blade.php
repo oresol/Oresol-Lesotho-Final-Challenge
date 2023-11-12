@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leaflet Map</title>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css">
 </head>
 <body class="bg-light">
 
@@ -19,23 +17,46 @@
     </div>
 </div>
 
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-<script src="https://unpkg.com/leaflet-providers@1.12.0/leaflet-providers.js"></script>
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        var map = L.map('map').setView([-29.3221, 27.4924], 13); 
+        var map = L.map('map').setView([-29.313443081134025, 27.48445138879433], 13);
 
-        L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(map); 
+        L.tileLayer.provider('OpenStreetMap.Mapnik').addTo(map);
 
         var stores = @json($stores);
 
+        function getMarkerColor(storeType) {
+            switch (storeType) {
+                case 'Liqour':
+                    return 'red';
+                case 'Inside-Mall':
+                    return 'blue';
+                case 'Supermarket':
+                    return 'green';
+                case 'Stationery':
+                    return 'orange';
+                case 'Retail':
+                    return 'purple';
+                default:
+                    return 'gray';
+            }
+        }
+
         stores.forEach(function (store) {
-            var marker = L.marker([parseFloat(store.latitude), parseFloat(store.longitude)]).addTo(map);
+            var markerColor = getMarkerColor(store.store_type);
+            var marker = L.marker([parseFloat(store.latitude), parseFloat(store.longitude)], {
+                icon: L.ExtraMarkers.icon({
+                    icon: 'fa-number',
+                    number: '',
+                    markerColor: markerColor,
+                    shape: 'circle',
+                    prefix: 'fas'
+                })
+            }).addTo(map);
+
             marker.bindPopup('<b>' + store.store_name + '</b><br>' + store.address);
         });
     });
 </script>
-
 </body>
 </html>

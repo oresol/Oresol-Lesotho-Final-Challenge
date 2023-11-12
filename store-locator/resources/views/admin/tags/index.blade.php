@@ -38,9 +38,9 @@
         </tbody>
     </table>
     <div class="d-flex">
-    
+        {!! $tags->links('pagination::bootstrap-4') !!}
+        </div> 
     </div>
-</div>
 
 @foreach ($tags as $tag)
     <div class="modal" id="editTag{{$tag->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

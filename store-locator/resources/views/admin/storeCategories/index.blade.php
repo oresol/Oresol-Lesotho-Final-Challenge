@@ -45,7 +45,9 @@
             </tbody>
             </table>
             <div class="d-flex">
+            {!! $categories->links('pagination::bootstrap-4') !!}
             </div> 
+
 
 
     @foreach ($categories as $category)

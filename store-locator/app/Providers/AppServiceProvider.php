@@ -25,10 +25,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $tags = Tag::all();
+        $tags = Tag::latest()->paginate(6);
         View::share('tags', $tags);
 
-        $categories = Category::all();
+        $categories = Category::latest()->paginate(4);
         View::share('categories', $categories);
 
         $user = UserProfile::all();
