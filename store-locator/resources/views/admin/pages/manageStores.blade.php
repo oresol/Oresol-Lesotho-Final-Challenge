@@ -56,7 +56,7 @@
                 </ul>
             </div>
         </nav>
-        <div class="col-md-10 d-flex align-items-center justify-content-center" style="margin-top:-20%;">
+        <div class="col-md-10 d-flex align-items-center justify-content-center" >
             @include('admin.stores.index')
         </div>
     </div>

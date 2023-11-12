@@ -18,6 +18,7 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                <th>Store Photo</th>
                 <th>Store Name</th>
                 <th>Store Type</th>
                 <th>Address</th>

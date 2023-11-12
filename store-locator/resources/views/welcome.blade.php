@@ -69,8 +69,6 @@
 
             marker.bindPopup('<b>' + store.store_name + '</b><br>' + store.address);
         });
-
-        // Add the geocoder control
         L.Control.geocoder().addTo(map);
     });
 </script>
