@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\StoreTypes;
 use App\Models\Company;
-use App\Models\Tag;
+use App\Models\Tags;
 
 class Store extends Model
 {
@@ -22,7 +22,7 @@ class Store extends Model
     }
 
     public function tags(){
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tags::class, "store_tags", "store_id", "tag_id");
     }
 
 }

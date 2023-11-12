@@ -11,7 +11,7 @@ class StoreStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,8 +21,15 @@ class StoreStoreRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            //
+       return [
+            "storeName" => "required",
+            "storePhoto" => "required",
+            "storeAddress" => "required",
+            "storeType_id" => "required",
+            "company_id" => "required",
+            "telePhoneNumber" => "required",
+            "longitude" => "required",
+            "latitude" => "required",
         ];
     }
 }

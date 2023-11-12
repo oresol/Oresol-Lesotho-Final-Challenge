@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Store;
+use App\Models\Tags;
+use Illuminate\Support\Facades\Log;
 use App\Http\Requests\StoreStoreRequest;
 use App\Http\Requests\UpdateStoreRequest;
 
@@ -13,7 +15,8 @@ class StoreController extends Controller
      */
     public function index()
     {
-        //
+        $stores = Store->all();
+        return view('dashboard.Stores.ManagePoints')->with('stores', $stores );
     }
 
     /**
@@ -21,7 +24,7 @@ class StoreController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.Stores.AddStroes');
     }
 
     /**
@@ -29,7 +32,24 @@ class StoreController extends Controller
      */
     public function store(StoreStoreRequest $request)
     {
-        //
+         $tags = explode(',', implode($request->tags) );
+        try {
+            $validatedData = $request->validated();
+            if ($request->has('storePhoto')) {
+                $imagePath = $request->file('storePhoto')->store('store_photos', 'public');
+                $validatedData['storePhoto'] = $imagePath;
+            }
+           $store= Store::create($validatedData);
+
+            foreach ($tags as $tagName) {
+                $tag = Tags::firstOrCreate(['tagName' => $tagName]);
+                $store->tags()->attach($tag);
+            }
+            return back()->with('success', 'Store Added successfully!');
+        } catch (\Exception $e) {
+            Log::error($e);
+             return back()->with('error', 'An error occurred. Please try again.'. $e->getMessage());
+        }
     }
 
     /**

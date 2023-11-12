@@ -2,22 +2,15 @@
 
 @section('content')
     <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
+        <x-maps-leaflet></x-maps-leaflet>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+        {{-- set the centerpoint of the map: --}}
+        <x-maps-leaflet :centerPoint="['lat' => 52.16, 'long' => 5]"></x-maps-leaflet>
 
-                    {{ __('You are logged in!') }}
-                </div>
-            </div>
-        </div>
+        {{-- set a zoomlevel: --}}
+        <x-maps-leaflet :zoomLevel="6"></x-maps-leaflet>
+
+        {{-- Set markers on the map: --}}
+        <x-maps-leaflet :markers="[['lat' => 52.16444513293423, 'long' => 5.985622388024091]]"></x-maps-leaflet>
     </div>
-</div>
 @endsection

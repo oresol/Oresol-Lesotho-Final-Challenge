@@ -14,7 +14,7 @@ class CompanyController extends Controller
     public function index()
     {
         $company = Company::all();
-        return view('dashboard.AccountSettings')->with('company', $company);
+        return view('dashboard.AccountSettings')->with('companies', $company);
     }
 
     /**

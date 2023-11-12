@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TagsController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\StoreController;
 use App\Http\Controllers\StoreTypesController;
 
 /*
@@ -25,9 +26,10 @@ Auth::routes();
 Route::resource('tags',TagsController::class);
 Route::resource('companies', CompanyController::class);
 Route::resource('storetypes',StoreTypesController::class);
-
+Route::resource('stores',StoreController::class);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::prefix('dashboard')->group(function () {
 
     Route::get('/addtaggs', function () {
@@ -35,7 +37,11 @@ Route::prefix('dashboard')->group(function () {
         });
 
     Route::get('/managepoints', function () {
-        return view('dashboard.ManagePoints');
+        return view('dashboard.Stores.ManagePoints');
+    });
+
+    Route::get('/addstores', function () {
+        return view('dashboard.Stores.AddStore');
     });
 
      Route::get('/account-settings', function () {

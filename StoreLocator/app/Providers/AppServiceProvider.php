@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\View;
 use App\Models\Tags;
 use App\Models\StoreTypes;
 use App\Models\Company;
+use App\Models\Store;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -29,6 +30,9 @@ class AppServiceProvider extends ServiceProvider
         View::share('storetypes', $storetypes);
 
         $company = Company::all();
-        View::share('company', $company);
+        View::share('companies', $company);
+
+        $stores = Store::all();
+        View::share('stores', $stores);
     }
 }
