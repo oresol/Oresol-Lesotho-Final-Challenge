@@ -40,10 +40,6 @@ Route::prefix('dashboard')->group(function () {
             return view('dashboard.tags.Tags'); 
     });
 
-     Route::get('/edit-tags', function () {
-            return view('dashboard.tags.EditTag'); 
-    });
-
     Route::get('/managepoints', function () {
         return view('dashboard.Stores.ManagePoints');
     });
@@ -53,7 +49,7 @@ Route::prefix('dashboard')->group(function () {
     });
 
      Route::get('/account-settings', function () {
-        return view('dashboard.AccountSettings');
+        return view('dashboard.Account.AccountSettings');
     });
 
     Route::get('/store-types', function () {

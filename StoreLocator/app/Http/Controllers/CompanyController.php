@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 
@@ -28,20 +29,6 @@ class CompanyController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    // public function store(StoreCompanyRequest $request)
-    // {
-    //     try{
-    //         $validatedData = $request->validated();
-    //         $imagePath = $request->file('companyLogo')->store('company_logos', 'public');
-    //         $validatedData['companyLogo'] = $imagePath;
-    //          $validatedData['user_id'] = Auth::id();
-    //         Company::create($validatedData);
-    //         return back()->with('success', 'Company Added successfully!');  
-    //     }catch(Exception $e){
-    //         return back()->with('error', $e);
-    //     }
-           
-    // }
 
     public function store(StoreCompanyRequest $request)
     {
@@ -76,17 +63,37 @@ class CompanyController extends Controller
      */
     public function edit(Company $company)
     {
-        return view('dashboard.AccountSettings')->with('company', $company);
+        return view('dashboard.Account.EditCompany')->with('company', $company);
     }
 
     /**
      * Update the specified resource in storage.
      */
     public function update(UpdateCompanyRequest $request, Company $company)
-    {
-        $company->update($request->validated());
-        return back()->with('success', 'Company updated successfully!');
+{
+    try {
+
+        $validatedData = $request->validated();
+
+        if ($request->hasFile('companyLogo')) {
+
+            if ($company->companyLogo) {
+                Storage::disk('public')->delete($company->companyLogo);
+            }
+
+            $imagePath = $request->file('companyLogo')->store('company_logos', 'public');
+            $validatedData['companyLogo'] = $imagePath;
+        }
+
+        $company->update($validatedData);
+
+        return redirect()->route('your.route.name')->with('success', 'Company updated successfully!');
+    } catch (\Exception $e) {
+        \Log::error('Error updating company: ' . $e->getMessage());
+        return back()->with('error', 'Error updating company. Please try again.');
     }
+}
+
 
     /**
      * Remove the specified resource from storage.
