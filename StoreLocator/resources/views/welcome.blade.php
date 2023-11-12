@@ -100,18 +100,19 @@
 
             var stores = @json($stores);
 
-            function addMarkerColors(storeTy_id) {
-                switch (storeTy_id) {
-                    case 3:
+
+            function addMarkerColors(storeType_id) {
+                switch (storeType_id) {
+                    case "3":
                         return 'red';
-                    case 4:
+                    case "4":
                         return 'blue';
-                    case 5:
+                    case "5":
                         return 'black';
-                    case 6:
+                    case "6":
                         return 'green';
-                    case 7:
-                        return 'purple';
+                    case "7":
+                        return 'violet';
                     default:
                         return 'red';
                 }
@@ -121,8 +122,7 @@
                 var getColor = addMarkerColors(store.storeType_id);
                 var marker = L.marker([parseFloat(store.longitude), parseFloat(store.latitude)], {
                     icon: L.icon({
-                        iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-' +
-                            getColor + '.png',
+                        iconUrl: `https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-${getColor}.png`,
                         iconSize: [25, 41],
                         iconAnchor: [12, 41],
                         popupAnchor: [1, -34],

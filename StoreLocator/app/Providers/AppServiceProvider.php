@@ -26,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $tags = Tags::all();
         View::share('tags', $tags);
+        
         $storetypes = StoreTypes::all();
         View::share('storetypes', $storetypes);
 
