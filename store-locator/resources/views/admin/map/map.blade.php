@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leaflet Map</title>
+    <title>Locate Store</title>
 </head>
 <body class="bg-light">
 
@@ -16,7 +16,6 @@
         </div>
     </div>
 </div>
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var map = L.map('map').setView([-29.313443081134025, 27.48445138879433], 13);
@@ -27,7 +26,7 @@
 
         function getMarkerColor(storeType) {
             switch (storeType) {
-                case 'Liqour':
+                case 'Liquor':
                     return 'red';
                 case 'Inside-Mall':
                     return 'blue';
@@ -56,6 +55,9 @@
 
             marker.bindPopup('<b>' + store.store_name + '</b><br>' + store.address);
         });
+
+        // Add the geocoder control
+        L.Control.geocoder().addTo(map);
     });
 </script>
 </body>

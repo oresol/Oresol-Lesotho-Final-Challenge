@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
         $tags = Tag::latest()->paginate(6);
         View::share('tags', $tags);
 
-        $categories = Category::latest()->paginate(4);
+        $categories = Category::latest()->paginate(10);
         View::share('categories', $categories);
 
         $user = UserProfile::all();

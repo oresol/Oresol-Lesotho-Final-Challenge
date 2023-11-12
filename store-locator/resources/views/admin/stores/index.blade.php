@@ -1,4 +1,4 @@
-<div class="container" style="margin-top: 7%;">
+<div class="container">
 <div class="container text-center">
     <h1>Registered Stores</h1>
 </div>
@@ -14,26 +14,39 @@
         </div>
     @endif
 
-    <div class="row">
-        @foreach ($stores as $store)
-            <div class="col-md-4 mb-4">
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" src="{{ asset('storage/images/' . $store->photo) }}" alt="Store Photo" width="200" height="150">
-                    <div class="card-body text-center">
-                        <h5 class="card-title">{{ $store->store_name }} - {{ $store->store_type }}</h5>
-                        <p class="card-text">Address: {{ $store->address }}</p>
-                        <p class="card-text">Telephone: {{ $store->telephone }}</p>
-                        <p class="card-text">Longitude: {{ $store->longitude }}</p>
-                        <p class="card-text">Latitude: {{ $store->latitude }}</p>
-                        <div class="d-flex justify-content-center align-items-center mt-3">
-                            <a href="{{ route('stores.edit', $store->id) }}" class="btn btn-primary" data-toggle="modal" data-target="#editStore{{ $store->id }}">Edit</a>
-                            <a href="#" class="btn btn-danger" data-action="{{ route('stores.destroy', $store->id) }}" data-toggle="modal" data-target="#deleteStore{{ $store->id }}">Delete</a> 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    </div>
+    <div class="container mt-4">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Store Name</th>
+                <th>Store Type</th>
+                <th>Address</th>
+                <th>Telephone</th>
+                <th>Longitude</th>
+                <th>Latitude</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($stores as $store)
+                <tr>
+                    <td><img src="{{ asset('storage/images/' . $store->photo) }}" alt="Store Photo" width="100" height="75"></td>
+                    <td>{{ $store->store_name }}</td>
+                    <td>{{ $store->store_type }}</td>
+                    <td>{{ $store->address }}</td>
+                    <td>{{ $store->telephone }}</td>
+                    <td>{{ $store->longitude }}</td>
+                    <td>{{ $store->latitude }}</td>
+                    <td>
+                        <a href="{{ route('stores.edit', $store->id) }}" class="btn btn-primary" data-toggle="modal" data-target="#editStore{{ $store->id }}">Edit</a>
+                        <a href="#" class="btn btn-danger" data-action="{{ route('stores.destroy', $store->id) }}" data-toggle="modal" data-target="#deleteStore{{ $store->id }}">Delete</a> 
+                    </td>
+                </tr>
+            @endforeach
+        </tbody>
+    </table>
+</div>
+
 </div>
 
 @foreach ($stores as $store)
