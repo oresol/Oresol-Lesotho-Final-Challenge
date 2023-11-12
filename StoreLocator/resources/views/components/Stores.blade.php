@@ -47,14 +47,14 @@
                     <form action="/stores/{{ $store->id }} method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn btn-danger btn-sm btn-rounded">
+                        <button type="submit" class="btn btn-danger btn-xs btn-rounded">
                             Delete
                         </button>
                     </form>
-                    <a href="/stores/{{ $store->id }}/edit" class="btn btn-primary btn-sm btn-rounded">
+                    <a href="/stores/{{ $store->id }}/edit" class="btn btn-primary btn-xsbtn-rounded">
                         Edit
                     </a>
-                    <a href="/stores/{{ $store->id }}" class="btn btn-success btn-sm btn-rounded">
+                    <a href="/stores/{{ $store->id }}" class="btn btn-success btn-xs btn-rounded">
                         View
                     </a>
                 </td>

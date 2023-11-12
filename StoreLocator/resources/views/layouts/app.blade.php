@@ -50,11 +50,11 @@
                                 </li>
                             @endif
 
-                            @if (Route::has('register'))
+                            {{-- @if (Route::has('register'))
                                 <li class="nav-item">
                                     <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
-                            @endif
+                            @endif --}}
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -81,43 +81,46 @@
         </nav>
         <div class="container-fluid ">
             <div class="row">
-                <nav id="sidebar" style="height: 98vh"
-                    class="col-md-3 col-lg-2 d-md-block bg-text-secondary sidebar bg-primary  shadow-sm">
-                    <div class="position-sticky">
-                        <ul class="nav flex-column text-secondary p-4">
-                            <li class="nav-item">
-                                <a class="nav-link active text-white" href="/home">
-                                    <i class="bi bi-grid-1x2-fill"></i>
-                                    Dashboard
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="/dashboard/managepoints">
-                                    <i class="bi  bi-geo-fill"></i>
-                                    Manage Points
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="/dashboard/account-settings">
-                                    <i class="bi bi-person-fill"></i>
-                                    Account Settings
-                                </a>
-                            </li>
-                            <li class="nav-item ">
-                                <a class="nav-link text-white" href="/dashboard/store-types">
-                                    <i class="bi bi bi-map-fill"></i>
-                                    Store Types
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link text-white" href="/dashboard/tags">
-                                    <i class="bi bi-tags-fill"></i>
-                                    Manage Tags
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
+                @guest
+                @else
+                    <nav id="sidebar" style="height: 98vh"
+                        class="col-md-3 col-lg-2 d-md-block bg-text-secondary sidebar bg-primary  shadow-sm">
+                        <div class="position-sticky">
+                            <ul class="nav flex-column text-secondary p-4">
+                                <li class="nav-item">
+                                    <a class="nav-link active text-white" href="/home">
+                                        <i class="bi bi-grid-1x2-fill"></i>
+                                        Dashboard
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="/dashboard/managepoints">
+                                        <i class="bi  bi-geo-fill"></i>
+                                        Manage Points
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="/dashboard/account-settings">
+                                        <i class="bi bi-person-fill"></i>
+                                        Account Settings
+                                    </a>
+                                </li>
+                                <li class="nav-item ">
+                                    <a class="nav-link text-white" href="/dashboard/store-types">
+                                        <i class="bi bi bi-map-fill"></i>
+                                        Store Types
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link text-white" href="/dashboard/tags">
+                                        <i class="bi bi-tags-fill"></i>
+                                        Manage Tags
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                @endguest
                 <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 py-4">
                     <div class="container-fluid">
                         @yield('content')
