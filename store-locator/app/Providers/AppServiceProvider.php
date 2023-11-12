@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use App\Models\Tag;
+use App\Models\Store;
 use App\Models\Category;
 use App\Models\UserProfile;
 use App\Models\CompanyProfile;
@@ -35,6 +36,9 @@ class AppServiceProvider extends ServiceProvider
 
         $company = CompanyProfile::all();
         View::share('company', $company);
+
+        $stores = Store::all();
+        View::share('stores', $stores);
        
     }
 }

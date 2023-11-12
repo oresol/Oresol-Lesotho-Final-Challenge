@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Store;
 use Illuminate\Http\Request;
-use App\Http\Requests\StoreRequest;
+use App\Http\Requests\StoreValidationRequest;
 use App\Http\Requests\UpdateStoreRequest;
 
 class StoreController extends Controller
@@ -30,20 +30,27 @@ class StoreController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreRequest $request)
+    public function store(StoreValidationRequest $request)
     {
+        
         $validatedData = $request->validated();
         $existingStore = Store::where('address', $request->input('address'))->first();
-        $id = auth()->user()->id;
-    
+
         if ($existingStore) {
-           
             return redirect()->back()->with('message', 'Store already exists.');
         }
-    
+
         $validatedData['admin_id'] = auth()->user()->id;
-        Store::create($validatedData);
-      
+        if ($request->has('photo')) {
+            $imagePath = $request->file('photo')->store('company_images', 'public');
+            $validatedData['photo'] = $imagePath;
+         }
+        $store = Store::create($validatedData);
+
+        // Attach tags to the store
+        $tags = $request->input('tags', []);
+        $store->tags()->attach($tags);
+
         return redirect()->back()->with('success', 'Store created successfully.');
     }
 

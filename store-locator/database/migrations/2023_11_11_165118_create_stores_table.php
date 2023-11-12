@@ -19,10 +19,9 @@ return new class extends Migration
             $table->decimal('longitude', 10, 7);
             $table->decimal('latitude', 10, 7);
             $table->string('store_type');
-            $table->string('tags');
             $table->string('photo')->nullable();
         
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            $table->foreignId('admin_id')->constrained('users')->onDelete('cascade');
 
             $table->timestamps();
         });

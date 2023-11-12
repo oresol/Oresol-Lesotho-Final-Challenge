@@ -15,8 +15,8 @@ class Store extends Model
         'longitude',
         'latitude',
         'store_type',
-        'tags',
         'photo',
+        'admin_id',
     ];
 
     public function tags()
